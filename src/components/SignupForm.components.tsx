@@ -79,17 +79,17 @@ export const SignupForm = ({
             {...register("email")}
             placeholder="type here"
             type="text"
-            className="w-full bg-[#6a6967] px-2 py-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
+            className="w-full border border-black bg-[#6a6967] px-2 py-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+            <p className="text-sm text-red-600">{errors.email.message}</p>
           )}
         </label>
         {/*  */}
         {/* Password */}
         <label className="flex flex-col gap-1">
           <p className="">Password:</p>
-          <div className="flex w-full items-center bg-[#6a6967]">
+          <div className="flex w-full items-center border border-black bg-[#6a6967]">
             <input
               {...register("password")}
               placeholder="type here"
@@ -109,16 +109,14 @@ export const SignupForm = ({
             )}
           </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.password.message}
-            </p>
+            <p className="text-sm text-red-600">{errors.password.message}</p>
           )}
         </label>
         {/*  */}
         {/* Confirm Password */}
         <label className="flex flex-col gap-1">
           <p className="">Confirm Password:</p>
-          <div className="flex w-full items-center bg-[#6a6967]">
+          <div className="flex w-full items-center border border-black bg-[#6a6967]">
             <input
               {...register("cpassword")}
               placeholder="type here"
@@ -138,9 +136,7 @@ export const SignupForm = ({
             )}
           </div>
           {errors.cpassword && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.cpassword.message}
-            </p>
+            <p className="text-sm text-red-600">{errors.cpassword.message}</p>
           )}
         </label>
         {/*  */}
