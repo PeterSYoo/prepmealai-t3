@@ -17,7 +17,7 @@ export const AuthProviders: React.FC = () => {
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
       <button
-        className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20 hover:bg-[#6a6967] hover:text-white"
+        className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#6a6967] hover:text-white"
         onClick={
           sessionData ? () => void signOut() : () => void signIn("discord")
         }
@@ -25,7 +25,7 @@ export const AuthProviders: React.FC = () => {
         {sessionData ? "Sign out" : "Discord Sign in"}
       </button>
       <button
-        className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20 hover:bg-[#6a6967] hover:text-white"
+        className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#6a6967] hover:text-white"
         onClick={
           sessionData ? () => void signOut() : () => void signIn("google")
         }
