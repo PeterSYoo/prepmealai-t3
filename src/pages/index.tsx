@@ -40,12 +40,18 @@ const Home: NextPage = () => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center gap-10 bg-gradient-to-b from-[#abd1d9] to-[#ffffff]">
+      <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gradient-to-b from-[#abd1d9] to-[#ffffff]">
         {/* Login Form */}
         {isLogin && <LoginForm setIsLogin={setIsLogin} />}
         {/*  */}
         {/* Signup Form */}
         {!isLogin && <SignupForm setIsLogin={setIsLogin} />}
+        {/*  */}
+        <div className="grid w-full max-w-[400px] grid-cols-[1fr_50px_1fr]">
+          <div className="mb-2.5 border-b border-black"></div>
+          <p className="text-center">or</p>
+          <div className="mb-2.5 border-b border-black"></div>
+        </div>
         <AuthProviders />
       </main>
     </>
