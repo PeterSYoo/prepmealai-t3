@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RiEyeCloseLine, RiEye2Line } from "react-icons/ri";
+import { useState } from "react";
 
 type Inputs = {
   email: string;
@@ -49,6 +51,7 @@ export const SignupForm = ({
 }: {
   setIsLogin: (isLogin: boolean) => void;
 }) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   // Use the useForm hook to handle the form state and validation
   const {
     register,
@@ -68,7 +71,7 @@ export const SignupForm = ({
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full max-w-[400px] flex-col gap-4"
       >
-        <h1 className="text-2xl font-bold">Signup</h1>
+        <h1 className="flex justify-end text-3xl font-bold">Signup</h1>
         {/* Email */}
         <label className="flex flex-col gap-1">
           <p className="">Email:</p>
@@ -86,12 +89,25 @@ export const SignupForm = ({
         {/* Password */}
         <label className="flex flex-col gap-1">
           <p className="">Password:</p>
-          <input
-            {...register("password")}
-            placeholder="type here"
-            type="password"
-            className="w-full bg-[#6a6967] px-2 py-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
-          />
+          <div className="flex w-full items-center bg-[#6a6967]">
+            <input
+              {...register("password")}
+              placeholder="type here"
+              type={showPassword ? "text" : "password"}
+              className="h-full w-full bg-[#6a6967] py-3 px-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
+            />
+            {showPassword ? (
+              <RiEye2Line
+                onClick={() => setShowPassword(false)}
+                className="mx-3 cursor-pointer text-xl hover:text-white"
+              />
+            ) : (
+              <RiEyeCloseLine
+                onClick={() => setShowPassword(true)}
+                className="mx-3 cursor-pointer text-xl hover:text-white"
+              />
+            )}
+          </div>
           {errors.password && (
             <p className="mt-1 text-sm text-red-600">
               {errors.password.message}
@@ -102,12 +118,25 @@ export const SignupForm = ({
         {/* Confirm Password */}
         <label className="flex flex-col gap-1">
           <p className="">Confirm Password:</p>
-          <input
-            {...register("cpassword")}
-            placeholder="type here"
-            type="password"
-            className="w-full bg-[#6a6967] px-2 py-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
-          />
+          <div className="flex w-full items-center bg-[#6a6967]">
+            <input
+              {...register("cpassword")}
+              placeholder="type here"
+              type={showPassword ? "text" : "password"}
+              className="w-full bg-[#6a6967] px-2 py-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
+            />
+            {showPassword ? (
+              <RiEye2Line
+                onClick={() => setShowPassword(false)}
+                className="mx-3 cursor-pointer text-xl hover:text-white"
+              />
+            ) : (
+              <RiEyeCloseLine
+                onClick={() => setShowPassword(true)}
+                className="mx-3 cursor-pointer text-xl hover:text-white"
+              />
+            )}
+          </div>
           {errors.cpassword && (
             <p className="mt-1 text-sm text-red-600">
               {errors.cpassword.message}
@@ -125,7 +154,7 @@ export const SignupForm = ({
           </button>
         </div>
         {/*  */}
-        <p className="text-center">
+        <p className="pt-10 text-center">
           If you don&apos;t have an account,&nbsp;
           <button
             className="text-[#a06b2d] hover:text-black"
