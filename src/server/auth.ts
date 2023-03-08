@@ -6,9 +6,12 @@ import {
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import * as bcrypt from "bcrypt";
+import { signIn } from "next-auth/react";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -38,13 +41,25 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
+    async signIn({ user, account, profile, email, credentials }: any) {
+      return true;
+    },
+    async session({ session, token }: any) {
+      if (session?.user) {
+        session.user.id = token.uid;
       }
       return session;
     },
+    async jwt({ user, token }: any) {
+      if (user) {
+        token.uid = user.id;
+      }
+      return token;
+    },
+  },
+  secret: env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
   },
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -55,6 +70,39 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email", required: true },
+        password: { label: "Password", type: "password", required: true },
+      },
+      async authorize(
+        credentials: { email: string; password: string } | undefined
+      ) {
+        if (!credentials) {
+          return null;
+        }
+
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email },
+        });
+
+        if (!user) {
+          throw new Error("No user found with that email!");
+        }
+
+        const passwordMatches: boolean = (await bcrypt.compare(
+          credentials?.password,
+          user.password as string
+        )) as unknown as boolean;
+
+        if (!passwordMatches) {
+          throw new Error("Wrong password!");
+        }
+
+        return user;
+      },
     }),
     /**
      * ...add more providers here.
