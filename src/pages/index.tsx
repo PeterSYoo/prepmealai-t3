@@ -68,12 +68,6 @@ const Home: NextPage = () => {
           <div className="mb-2.5 border-b border-black"></div>
         </div>
         <AuthProviders />
-        <button
-          onClick={() => setIsErrorModal(true)}
-          className="border border-black px-2 py-1"
-        >
-          Open Modal
-        </button>
       </main>
     </>
   );
