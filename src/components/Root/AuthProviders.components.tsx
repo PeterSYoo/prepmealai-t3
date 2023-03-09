@@ -11,7 +11,12 @@ export const AuthProviders: React.FC = () => {
       <button
         className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#6a6967] hover:text-white"
         onClick={
-          sessionData ? () => void signOut() : () => void signIn("discord")
+          sessionData
+            ? () => void signOut()
+            : () =>
+                void signIn("discord", {
+                  callbackUrl: "/dashboard",
+                })
         }
       >
         {sessionData ? "Sign out" : "Discord Sign in"}
@@ -19,7 +24,12 @@ export const AuthProviders: React.FC = () => {
       <button
         className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#6a6967] hover:text-white"
         onClick={
-          sessionData ? () => void signOut() : () => void signIn("google")
+          sessionData
+            ? () => void signOut()
+            : () =>
+                void signIn("google", {
+                  callbackUrl: "/dashboard",
+                })
         }
       >
         {sessionData ? "Sign out" : "Google Sign in"}
