@@ -3,10 +3,11 @@ import type { SubmitHandler } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RiEyeCloseLine, RiEye2Line } from "react-icons/ri";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useHandleLogin from "~/hooks/useHandleLogin";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { EmailDoesntExistModal } from "./EmailDoesntExistModal.components";
 
 type Inputs = {
   email: string;
@@ -51,17 +52,12 @@ const FormSchema = z
 
 export const LoginForm = ({
   setIsLogin,
-  setIsErrorModal,
 }: {
   setIsLogin: (isLogin: boolean) => void;
-  setIsErrorModal: (isLogin: boolean) => void;
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  // session
-  const { data, status } = useSession();
-
-  console.log({ data });
+  const [isEmailDoesntExistModal, setIsEmailDoesntExistModal] =
+    useState<boolean>(false);
 
   // router
   const router = useRouter();
@@ -69,7 +65,7 @@ export const LoginForm = ({
   // React Query
   const { mutateAsync, isLoading } = useHandleLogin(
     signIn,
-    setIsErrorModal,
+    setIsEmailDoesntExistModal,
     router
   );
 
@@ -89,6 +85,11 @@ export const LoginForm = ({
 
   return (
     <>
+      {isEmailDoesntExistModal && (
+        <EmailDoesntExistModal
+          setIsEmailDoesntExistModal={setIsEmailDoesntExistModal}
+        />
+      )}
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
