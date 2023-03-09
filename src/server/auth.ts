@@ -11,7 +11,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import * as bcrypt from "bcrypt";
-import { signIn } from "next-auth/react";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -41,16 +40,20 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }: any) {
+    signIn() {
       return true;
     },
-    async session({ session, token }: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    session({ session, token }: any) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (session?.user) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         session.user.id = token.uid;
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return session;
     },
-    async jwt({ user, token }: any) {
+    jwt({ user, token }) {
       if (user) {
         token.uid = user.id;
       }
