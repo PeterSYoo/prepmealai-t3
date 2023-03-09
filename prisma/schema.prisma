@@ -62,6 +62,20 @@ model User {
     sessions      Session[]
 }
 
+model Recipe {
+    id            String    @id @default(cuid())
+    name          String
+    dishType      String
+    description   String
+    ingredients   String[]
+    protein       String
+    fats          String
+    carbs         String
+    prepTime      String
+    cookingTime   String
+    instructions  String[]
+}
+
 model VerificationToken {
     identifier String
     token      String   @unique
