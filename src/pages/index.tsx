@@ -1,9 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { AuthProviders } from "~/components/Root/AuthProviders.components";
-import { LoginForm } from "~/components/Root/Login/LoginForm.components";
+import { AuthProviders } from "~/components/root/AuthProviders.components";
+import { LoginForm } from "~/components/root/login/LoginForm.components";
 import { useState } from "react";
-import { SignupForm } from "~/components/Root/Signup/SignupForm.components";
+import { SignupForm } from "~/components/root/signup/SignupForm.components";
+import { getServerAuthSession } from "~/server/auth";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -34,7 +36,7 @@ const Home: NextPage = () => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gradient-to-b from-[#abd1d9] to-[#ffffff]">
+      <main className="flex h-full w-full flex-col items-center justify-center gap-6 bg-gradient-to-b from-[#abd1d9] to-[#ffffff]">
         {/* Login Form */}
         {isLogin && <LoginForm setIsLogin={setIsLogin} />}
         {/*  */}
@@ -53,3 +55,20 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await getServerAuthSession(ctx);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
