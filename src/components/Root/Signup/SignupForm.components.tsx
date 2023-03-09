@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiEyeCloseLine, RiEye2Line } from "react-icons/ri";
 import { useState } from "react";
 import { api } from "~/utils/api";
+import { EmailExistsModal } from "./EmailExistsModal.components";
+import { SuccessModal } from "./SuccessModal.components";
 
 type Inputs = {
   email: string;
@@ -49,12 +51,12 @@ const FormSchema = z
 
 export const SignupForm = ({
   setIsLogin,
-  setIsSuccessModal,
 }: {
   setIsLogin: (arg0: boolean) => void;
-  setIsSuccessModal: (arg0: boolean) => void;
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isEmailExistsModal, setIsEmailExistsModal] = useState<boolean>(false);
+  const [isSuccessModal, setIsSuccessModal] = useState<boolean>(false);
 
   const mutation = api.user.postUser.useMutation();
 
@@ -76,17 +78,27 @@ export const SignupForm = ({
       setIsSuccessModal(true);
     } catch (error) {
       console.log(error);
+      setIsEmailExistsModal(true);
     }
   };
 
   return (
     <>
+      {isEmailExistsModal && (
+        <EmailExistsModal setIsEmailExistsModal={setIsEmailExistsModal} />
+      )}
+      {isSuccessModal && (
+        <SuccessModal
+          setIsSuccessModal={setIsSuccessModal}
+          setIsLogin={setIsLogin}
+        />
+      )}
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full max-w-[400px] flex-col gap-4"
       >
-        <h1 className="flex justify-end text-3xl font-bold">Signup</h1>
+        <h1 className="flex justify-end text-3xl font-bold">Sign-up</h1>
         {/* Email */}
         <label className="flex flex-col gap-1">
           <p className="">Email:</p>
