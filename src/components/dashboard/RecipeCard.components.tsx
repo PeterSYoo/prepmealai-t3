@@ -38,19 +38,19 @@ export const RecipeCard = ({ recipe }: { recipe: any }) => {
         {/*  */}
         {/* Protein */}
         <div className="grid grid-cols-[135px_1fr]">
-          <p className="font-medium">Protein:</p>
+          <p className="font-medium">Protein(grams):</p>
           <p>{recipe[0]?.protein}</p>
         </div>
         {/*  */}
         {/* Fat */}
         <div className="grid grid-cols-[135px_1fr]">
-          <p className="font-medium">Fat:</p>
+          <p className="font-medium">Fat(grams):</p>
           <p>{recipe[0]?.fat}</p>
         </div>
         {/*  */}
         {/* Carbohydrates */}
         <div className="grid grid-cols-[135px_1fr]">
-          <p className="font-medium">Carbohydrates:</p>
+          <p className="font-medium">Carbs(grams):</p>
           <p>{recipe[0]?.carb}</p>
         </div>
         {/*  */}
