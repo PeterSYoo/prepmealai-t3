@@ -1,10 +1,20 @@
 import { signOut, useSession } from "next-auth/react";
 import { GenerateRecipeForm } from "~/components/dashboard/GenerateRecipeForm.components";
 import { RecipeCard } from "~/components/dashboard/RecipeCard.components";
+import { api } from "~/utils/api";
 
 const DashboardPage = () => {
+  const mutation = api.openai.postOpenai.useMutation();
   // session
   const { data: sessionData, status } = useSession();
+
+  const handleOpenai = () => {
+    const content = "What is 3+3?";
+
+    mutation.mutate({ content });
+  };
+
+  console.log({ mutation });
 
   if (status === "loading") {
     return <>Fetching User Data..</>;
@@ -21,6 +31,15 @@ const DashboardPage = () => {
       >
         Sign Out
       </button>
+      <button
+        onClick={handleOpenai}
+        className="w-full border border-black bg-white/10 px-10 py-3 font-semibold transition hover:bg-[#6a6967] hover:text-white"
+      >
+        OpenAi
+      </button>
+      <p className="text-center">
+        {mutation.data?.data.choices[0].message.content}
+      </p>
       <div className="grid grid-cols-[1.25fr_1fr] gap-[75px] bg-gradient-to-b from-[#abd1d9] to-[#ffffff] p-14">
         {/* Column 1 */}
         <div className="w-full">
