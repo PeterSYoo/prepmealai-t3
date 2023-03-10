@@ -27,7 +27,11 @@ const FormSchema = z.object({
   meat: z.string(),
 });
 
-export const GenerateRecipeForm = () => {
+export const GenerateRecipeForm = ({
+  handleGenerateRecipe,
+}: {
+  handleGenerateRecipe: (arg0: string, arg1: string, arg2: string) => void;
+}) => {
   // Use the useForm hook to handle the form state and validation
   const {
     register,
@@ -38,7 +42,7 @@ export const GenerateRecipeForm = () => {
   } = useForm<FormSchemaType>({ resolver: zodResolver(FormSchema) });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    handleGenerateRecipe(data.calories, data.protein, data.meat);
   };
 
   return (
