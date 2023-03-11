@@ -85,7 +85,11 @@ const DashboardPage = () => {
                 <div className="mx-auto w-full border-b border-black"></div>
               </div>
               {/* Recipe Card */}
-              <RecipeCard recipe={recipe} />
+              <RecipeCard
+                status={mutation.status}
+                isLoading={mutation.isLoading}
+                recipe={recipe}
+              />
               {/*  */}
             </div>
             {/*  */}
