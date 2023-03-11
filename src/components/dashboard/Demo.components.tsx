@@ -4,6 +4,7 @@ import { api } from "~/utils/api";
 export const Demo = () => {
   const [demoData, setDemoData] = useState<any>([]);
   const mutation = api.openai.postDemo.useMutation();
+  const resultId = api.recipe.testRecipe.useQuery();
 
   const handleGenerateDemo = () => {
     const content = `
@@ -26,12 +27,11 @@ export const Demo = () => {
     }
   }, [mutation.data?.data.choices[0]]);
 
-  console.log({ demoData });
-
   return (
     <>
       <div className="px-14 pb-14">
         <div className="flex w-full flex-col border border-black px-5 py-10">
+          <p className="">{resultId.data?.message}</p>
           <button
             className="w-full border border-black bg-white/10 px-10 py-3 font-semibold transition hover:bg-[#6a6967] hover:text-white"
             onClick={handleGenerateDemo}
