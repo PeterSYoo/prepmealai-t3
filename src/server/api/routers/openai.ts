@@ -2,8 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { env } from "~/env.mjs";
 
-console.log(env.OPENAI_API_KEY);
-
 export const openaiRouter = createTRPCRouter({
   postOpenai: protectedProcedure
     .input(z.object({ content: z.string() }))
