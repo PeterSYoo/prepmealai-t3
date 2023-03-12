@@ -13,7 +13,7 @@ export const RecipeCard = ({
   // session
 
   const handleSave = () => {
-    mutation.mutate({ name: "Test" });
+    mutation.mutate({ ...recipe[0] });
   };
 
   console.log({ mutation });
@@ -94,11 +94,10 @@ export const RecipeCard = ({
                 {/* Instructions */}
                 <div className="grid grid-cols-[135px_1fr]">
                   <p className="font-medium">Instructions:</p>
-                  <ol className="flex list-decimal flex-col gap-1 pl-5">
-                    {recipe[0]?.instructions[0] &&
-                      Object.entries(recipe[0].instructions[0]).map(
-                        ([key, value]) => <li key={key}>{value}</li>
-                      )}
+                  <ol className="flex flex-col gap-1">
+                    {recipe[0]?.instructions.map((instruction, index) => (
+                      <li key={index}>{instruction}</li>
+                    ))}
                   </ol>
                 </div>
                 {/*  */}
