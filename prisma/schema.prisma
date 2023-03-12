@@ -69,6 +69,7 @@ model Recipe {
     dishType      String
     description   String
     ingredients   String[]
+    calories      String
     protein       String
     fat          String
     carb         String
