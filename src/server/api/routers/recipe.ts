@@ -5,17 +5,17 @@ export const recipeRouter = createTRPCRouter({
   postRecipe: protectedProcedure
     .input(
       z.object({
-        // name: z.string(),
-        // dishType: z.string(),
-        // description: z.string(),
-        // ingredients: z.array(z.string()),
-        // protein: z.string(),
-        // fat: z.string(),
-        // carb: z.string(),
-        // prepTime: z.string(),
-        // cookingTime: z.string(),
-        // instructions: z.array(z.record(z.string())),
-        // userId: z.string(),
+        name: z.string(),
+        dishType: z.string(),
+        description: z.string(),
+        ingredients: z.array(z.string()),
+        calories: z.string(),
+        protein: z.string(),
+        fat: z.string(),
+        carb: z.string(),
+        prepTime: z.string(),
+        cookingTime: z.string(),
+        instructions: z.array(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -25,16 +25,17 @@ export const recipeRouter = createTRPCRouter({
 
         const recipe = await ctx.prisma.recipe.create({
           data: {
-            name: "Example Recipe",
-            dishType: "Main Course",
-            description: "This is an example recipe.",
-            ingredients: ["ingredient1", "ingredient2", "ingredient3"],
-            protein: "10g",
-            fat: "5g",
-            carb: "15g",
-            prepTime: "10 minutes",
-            cookingTime: "30 minutes",
-            instructions: ["step 1", "step 2", "step 3"],
+            name: input.name,
+            dishType: input.dishType,
+            description: input.description,
+            ingredients: input.ingredients,
+            calories: input.calories,
+            protein: input.protein,
+            fat: input.fat,
+            carb: input.carb,
+            prepTime: input.prepTime,
+            cookingTime: input.cookingTime,
+            instructions: input.instructions,
             userId: user.id,
           },
         });
@@ -99,4 +100,30 @@ export const recipeRouter = createTRPCRouter({
       };
     }
   }),
+  deleteRecipe: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const recipe = await ctx.prisma.recipe.delete({
+          where: { id: input.id },
+        });
+
+        // Return success message
+        return {
+          success: true,
+          message: "Recipe deleted succesfully.",
+          recipe,
+        };
+      } catch (error) {
+        console.log(error);
+        throw {
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to delete recipe.",
+        };
+      }
+    }),
 });
