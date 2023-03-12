@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Demo } from "~/components/dashboard/Demo.components";
 import { GenerateRecipeForm } from "~/components/dashboard/GenerateRecipeForm.components";
 import { RecipeCard } from "~/components/dashboard/RecipeCard.components";
+import { SavedRecipes } from "~/components/dashboard/SavedRecipes.components";
 import { api } from "~/utils/api";
 
 const DashboardPage = () => {
@@ -17,31 +18,28 @@ const DashboardPage = () => {
     meat: string
   ) => {
     const content = `
-    Create a random recipe with ${calories} calories and ${protein}g of ${meat} protein.
-    Do not include any explanations, only provide a  RFC8259 compliant JSON response  following this format without deviation.
+    Generate a random recipe with ${calories} calories and ${protein}g of ${meat} protein, dish name and dish type should be different from the past 3 prompts.
+
+    Return the recipe as an RFC8259 compliant JSON response following this format:
     [
       {
-        "name": "name of recipe",
-        "dishType": "type of dish",
-        "description": "description of recipe",
-        "ingredients": ["ingredient 1", "ingredient 2", "ingredient 3", "etc"],
-        "calories": "number of calories",
-        "protein": "number of protein by gram",
-        "fat": "number of fat by gram",
-        "carb": "number of carb by gram",
-        "prepTime": "preperation time",
-        "cookingTime": "cooking time",
+        "name": "string",
+        "dishType": "string",
+        "description": "string",
+        "ingredients": ["string", "string", "string"],
+        "calories": "string",
+        "protein": "string",
+        "fat": "string",
+        "carb": "string",
+        "prepTime": "string",
+        "cookingTime": "string",
         "instructions": [
-          {
-            "step 1": "step 1 instructions",
-            "step 2": "step 2 instructions",
-            "step 3": "step 3 instructions",
-            "step 4": "etc."
-          }
+          "Step 1: string",
+          "Step 2: string",
+          "Step 3: string"
         ]
       }
-    ]    
-    The JSON response:
+    ]     
     `;
 
     mutation.mutate({ content });
@@ -57,7 +55,7 @@ const DashboardPage = () => {
     return <>Fetching User Data..</>;
   }
 
-  console.log({ recipe });
+  console.log(recipe[0]);
 
   return (
     <>
@@ -99,7 +97,9 @@ const DashboardPage = () => {
         {/* Column 2 */}
         <div className="w-full">
           <h1 className="">Saved Recipes</h1>
-          <div className="w-full border border-black">Test</div>
+          <div className="flex w-full flex-col border border-black px-5 py-10">
+            <SavedRecipes />
+          </div>
         </div>
         {/*  */}
       </div>
