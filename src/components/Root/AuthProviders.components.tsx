@@ -4,31 +4,31 @@ export const AuthProviders: React.FC = () => {
   const { data: sessionData } = useSession();
 
   return (
-    <div className="flex w-full max-w-[400px] flex-col items-center justify-center gap-4">
+    <div className="flex w-full max-w-[400px] flex-col items-center justify-center gap-5 px-5 pt-3">
       <p className="text-center text-2xl">
         {sessionData && <span>Logged in as {sessionData.user?.email}</span>}
       </p>
       <button
-        className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#6a6967] hover:text-white"
+        className="w-full rounded-lg border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#32383F] hover:text-white"
         onClick={
           sessionData
             ? () => void signOut()
             : () =>
                 void signIn("discord", {
-                  callbackUrl: "/dashboard",
+                  callbackUrl: "/recipe",
                 })
         }
       >
         {sessionData ? "Sign out" : "Discord Sign in"}
       </button>
       <button
-        className="w-full border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#6a6967] hover:text-white"
+        className="w-full rounded-lg border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#32383F] hover:text-white"
         onClick={
           sessionData
             ? () => void signOut()
             : () =>
                 void signIn("google", {
-                  callbackUrl: "/dashboard",
+                  callbackUrl: "/recipe",
                 })
         }
       >
