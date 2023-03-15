@@ -96,17 +96,17 @@ export const SignupForm = ({
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full max-w-[400px] flex-col gap-4"
+        className="flex w-full max-w-[400px] flex-col gap-4 px-5"
       >
         <h1 className="flex justify-end text-3xl font-bold">Sign-up</h1>
         {/* Email */}
-        <label className="flex flex-col gap-1">
-          <p className="">Email:</p>
+        <label className="-mb-2 flex flex-col gap-1 pt-4">
+          <p className="font-medium">Email:</p>
           <input
             {...register("email")}
             placeholder="type here"
             type="text"
-            className="w-full border border-black bg-[#6a6967] px-2 py-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
+            className="w-full border border-black bg-[#FFF4EC] px-2 py-2 placeholder:text-[#aaa8a6] focus:outline-none"
           />
           {errors.email && (
             <p className="text-sm text-red-600">{errors.email.message}</p>
@@ -115,23 +115,23 @@ export const SignupForm = ({
         {/*  */}
         {/* Password */}
         <label className="flex flex-col gap-1">
-          <p className="">Password:</p>
-          <div className="flex w-full items-center border border-black bg-[#6a6967]">
+          <p className="font-medium">Password:</p>
+          <div className="flex w-full items-center border border-black bg-[#FFF4EC]">
             <input
               {...register("password")}
               placeholder="type here"
               type={showPassword ? "text" : "password"}
-              className="h-full w-full bg-[#6a6967] py-3 px-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
+              className="h-full w-full bg-[#FFF4EC] py-3 px-2 placeholder:text-[#aaa8a6] focus:outline-none"
             />
             {showPassword ? (
               <RiEye2Line
                 onClick={() => setShowPassword(false)}
-                className="mx-3 cursor-pointer text-xl hover:text-white"
+                className="mx-3 cursor-pointer text-xl"
               />
             ) : (
               <RiEyeCloseLine
                 onClick={() => setShowPassword(true)}
-                className="mx-3 cursor-pointer text-xl hover:text-white"
+                className="mx-3 cursor-pointer text-xl"
               />
             )}
           </div>
@@ -142,23 +142,23 @@ export const SignupForm = ({
         {/*  */}
         {/* Confirm Password */}
         <label className="flex flex-col gap-1">
-          <p className="">Confirm Password:</p>
-          <div className="flex w-full items-center border border-black bg-[#6a6967]">
+          <p className="font-medium">Confirm Password:</p>
+          <div className="flex w-full items-center border border-black bg-[#FFF4EC]">
             <input
               {...register("cpassword")}
               placeholder="type here"
               type={showPassword ? "text" : "password"}
-              className="w-full bg-[#6a6967] px-2 py-2 text-white placeholder:text-[#aaa8a6] focus:outline-none"
+              className="w-full bg-[#FFF4EC] px-2 py-2 placeholder:text-[#aaa8a6] focus:outline-none"
             />
             {showPassword ? (
               <RiEye2Line
                 onClick={() => setShowPassword(false)}
-                className="mx-3 cursor-pointer text-xl hover:text-white"
+                className="mx-3 cursor-pointer text-xl"
               />
             ) : (
               <RiEyeCloseLine
                 onClick={() => setShowPassword(true)}
-                className="mx-3 cursor-pointer text-xl hover:text-white"
+                className="mx-3 cursor-pointer text-xl"
               />
             )}
           </div>
@@ -168,10 +168,10 @@ export const SignupForm = ({
         </label>
         {/*  */}
         {/* Submit Button */}
-        <div className="flex justify-end ">
+        <div className="flex justify-end pt-2">
           <button
             type="submit"
-            className="border border-black px-2 py-1 hover:bg-[#6a6967] hover:text-white"
+            className="rounded-md border border-black px-4 py-1 font-medium hover:bg-[#32383F] hover:text-white"
           >
             Submit
           </button>
