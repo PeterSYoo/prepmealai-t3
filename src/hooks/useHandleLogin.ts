@@ -22,7 +22,7 @@ const useHandleLogin = (
         redirect: false,
         email: data.email,
         password: data.password,
-        callbackUrl: "/dashboard",
+        callbackUrl: "/recipe",
       });
       console.log({ status });
       if (status.error === "No user found with that email!") {
