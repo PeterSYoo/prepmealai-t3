@@ -45,3 +45,5 @@ yarn-error.log*
 recipe.json
 
 /src/components/drafts
+/src/components/motion
+/src/pages/motion
