@@ -18,16 +18,63 @@ const ptSansNarrow = PT_Sans_Narrow({
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import { useRouter } from "next/router";
+import { MenuDrawer } from "~/components/MenuDrawer.components";
+import { useState } from "react";
+import { FiChevronsDown, FiChevronsUp, FiMenu } from "react-icons/fi";
+import { ImMenu3 } from "react-icons/im";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  const excludedRoutes = ["/"];
+  const shouldRenderHeader = !excludedRoutes.includes(router.pathname);
+
+  const openMenuDrawer = () => {
+    setIsMenuDrawerOpen(true);
+  };
+
+  const closeMenuDrawer = () => {
+    setIsMenuDrawerOpen(false);
+  };
+
   return (
     <SessionProvider session={session}>
       <div
         className={`${inter.variable} ${ptSansNarrow.variable} h-screen font-inter`}
       >
+        <div
+          className={`fixed top-0 left-0 flex h-screen w-full transform flex-col items-center justify-center transition-all duration-300 ${
+            isMenuDrawerOpen
+              ? "h-[65px] translate-y-0"
+              : "h-1/6 -translate-y-full"
+          }`}
+        >
+          {shouldRenderHeader && <MenuDrawer />}
+        </div>
+        <div className="flex justify-center">
+          <button
+            className={`absolute transition-all duration-300 ${
+              isMenuDrawerOpen ? "top-[80px]" : "top-3"
+            }`}
+            onClick={isMenuDrawerOpen ? closeMenuDrawer : openMenuDrawer}
+          >
+            {shouldRenderHeader && (
+              <>
+                {isMenuDrawerOpen ? (
+                  <FiChevronsUp className="text-xl hover:hover:text-[#a2acb9]" />
+                ) : (
+                  <FiMenu className="text-xl hover:hover:text-[#a2acb9]" />
+                )}
+              </>
+            )}
+          </button>
+        </div>
         <Component {...pageProps} />
       </div>
     </SessionProvider>
