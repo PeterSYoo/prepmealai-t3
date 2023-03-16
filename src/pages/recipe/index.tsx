@@ -14,16 +14,17 @@ const RecipePage = () => {
   const handleGenerateRecipe = (
     calories: string,
     protein: string,
-    meat: string
+    proteinChoice: string
   ) => {
     const content = `
-    Generate a random recipe with ${calories} calories and ${protein}g of ${meat} protein, dish name and dish type should be different from the past 3 prompts.
+    Generate a random recipe with ${calories} calories and ${protein}g of ${proteinChoice} protein, dish name and dish type should be different from the past 3 prompts.
 
     Return the recipe as an RFC8259 compliant JSON response following this format:
     [
       {
         "name": "string",
         "dishType": "string",
+        "proteinChoice: "string",
         "description": "string",
         "ingredients": ["string", "string", "string"],
         "calories": "string",
@@ -52,7 +53,7 @@ const RecipePage = () => {
 
   return (
     <>
-      <main className="flex h-full w-full flex-col items-center justify-center bg-[#FFF4EC]">
+      <main className="flex h-full flex-col items-center justify-center bg-[#FFF9F5]">
         {/* Recipe Generator Form */}
         {isForm && (
           <GenerateRecipeForm
