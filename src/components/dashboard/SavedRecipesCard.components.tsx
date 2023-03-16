@@ -31,6 +31,12 @@ export const SavedRecipesCard = ({
             <p>{recipe?.dishType}</p>
           </div>
           {/*  */}
+          {/* Choice of Protein */}
+          <div className="grid grid-cols-[135px_1fr]">
+            <p className="font-medium">Choice of Protein:</p>
+            <p>{recipe?.proteinChoice}</p>
+          </div>
+          {/*  */}
           {/* Description */}
           <div className="grid grid-cols-[135px_1fr]">
             <p className="font-medium">Description:</p>
