@@ -9,7 +9,7 @@ const RecipeBoardPage = () => {
 
   return (
     <>
-      <div className="">
+      <div className="bg-[#FFF9F5]">
         <div className="flex flex-col gap-8 pt-28">
           {allRecipes?.data?.recipes?.map((recipe) => (
             <Fragment key={recipe?.id}>
