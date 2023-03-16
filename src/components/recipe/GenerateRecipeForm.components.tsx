@@ -7,7 +7,7 @@ import Image from "next/image";
 type Inputs = {
   calories: string;
   protein: string;
-  meat: string;
+  proteinChoice: string;
 };
 
 // Type for the form schema
@@ -25,7 +25,7 @@ const FormSchema = z.object({
     .refine((value) => parseInt(value) >= 5 && parseInt(value) <= 200, {
       message: "Protein must be between 5 and 200 grams.",
     }),
-  meat: z.string(),
+  proteinChoice: z.string(),
 });
 
 export const GenerateRecipeForm = ({
@@ -45,21 +45,26 @@ export const GenerateRecipeForm = ({
   } = useForm<FormSchemaType>({ resolver: zodResolver(FormSchema) });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    handleGenerateRecipe(data.calories, data.protein, data.meat);
+    handleGenerateRecipe(data.calories, data.protein, data.proteinChoice);
     setIsForm(false);
   };
 
   return (
     <>
-      <div className="w-full bg-white shadow-[0_15px_20px_10px] shadow-black/50 md:grid md:max-h-[691px] md:w-fit md:grid-cols-[1fr_1fr] md:shadow-[10px_15px_20px_10px] md:shadow-black/50">
+      <div className="w-full rounded-lg bg-white shadow-[0_15px_20px_10px] shadow-black/50 md:mx-5 md:grid md:max-h-[691px] md:w-fit md:grid-cols-[1fr_1fr] md:shadow-[10px_15px_20px_10px] md:shadow-black/50">
         {/* Column 1 */}
         <form
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={handleSubmit(onSubmit)}
           className="mx-auto flex w-full max-w-[500px] flex-col items-center justify-center gap-5 px-5 py-5"
         >
+          {/* Title */}
+          <h1 className="font-ptSansNarrow text-4xl font-bold">
+            Recipe Generator
+          </h1>
+          {/*  */}
           {/* Calories */}
-          <label className="w-full">
+          <label className="w-full pt-5">
             <p className="">Calories:</p>
             <input
               {...register("calories")}
@@ -86,17 +91,19 @@ export const GenerateRecipeForm = ({
             )}
           </label>
           {/*  */}
-          {/* Type of Meat */}
+          {/* Type of Protein Choice */}
           <label className="w-full">
-            <p className="">Type of Meat:</p>
+            <p className="">Type of Protein:</p>
             <select
-              {...register("meat")}
+              {...register("proteinChoice")}
               className="w-full border border-black p-1 focus:outline-none"
             >
               <option value="chicken">Chicken</option>
               <option value="beef">Beef</option>
               <option value="pork">Pork</option>
               <option value="turkey">Turkey</option>
+              <option value="egg">Egg</option>
+              <option value="plant-based protein">Planet-Based Protein</option>
             </select>
           </label>
           {/*  */}
@@ -104,7 +111,7 @@ export const GenerateRecipeForm = ({
           <div className="flex w-full justify-end">
             <button
               type="submit"
-              className="border border-black bg-white px-4 py-1 font-semibold transition hover:bg-[#6a6967] hover:text-white"
+              className="rounded-md border border-black bg-white px-4 py-1 font-semibold transition hover:bg-[#32383F] hover:text-white"
             >
               Submit
             </button>
@@ -117,6 +124,7 @@ export const GenerateRecipeForm = ({
             src="https://res.cloudinary.com/dryh1nvhk/image/upload/v1678821553/PrepMeal%20AI/Generator/beechmore-books-0S2rRstB_9M-unsplash_1_qve6rr.png"
             alt="recipe book"
             fill
+            className="rounded-r-lg"
           />
         </div>
         {/*  */}
