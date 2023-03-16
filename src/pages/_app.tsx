@@ -48,7 +48,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <div
-        className={`${inter.variable} ${ptSansNarrow.variable} h-screen font-inter`}
+        className={`${inter.variable} ${ptSansNarrow.variable} h-screen bg-[#FFF9F5] font-inter`}
       >
         <div
           className={`absolute top-0 left-0 flex h-screen w-full transform flex-col items-center justify-center transition-all duration-300 ${
@@ -69,9 +69,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
             {shouldRenderHeader && (
               <>
                 {isMenuDrawerOpen ? (
-                  <FiChevronsUp className="text-xl hover:hover:text-[#4e565f]" />
+                  <div className="rounded-full bg-[#FFF9F5] p-2">
+                    <FiChevronsUp className="text-xl hover:hover:text-[#4e565f]" />
+                  </div>
                 ) : (
-                  <HiOutlineSwitchVertical className="text-xl hover:hover:text-[#4e565f]" />
+                  <div className="rounded-full bg-[#FFF9F5] p-2">
+                    <HiOutlineSwitchVertical className="text-xl hover:hover:text-[#4e565f]" />
+                  </div>
                 )}
               </>
             )}
