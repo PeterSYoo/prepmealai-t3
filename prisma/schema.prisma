@@ -67,6 +67,7 @@ model Recipe {
     id            String    @id @default(cuid())
     name          String
     dishType      String
+    proteinChoice String
     description   String
     ingredients   String[]
     calories      String
