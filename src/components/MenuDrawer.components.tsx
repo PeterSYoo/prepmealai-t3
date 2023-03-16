@@ -1,22 +1,27 @@
-import { BsBook } from "react-icons/bs";
+import { BsBook, BsBookFill, BsBookHalf } from "react-icons/bs";
 import { AiOutlineLogout } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { IoFastFoodOutline } from "react-icons/io5";
+import { GiApothecary } from "react-icons/gi";
+import { RiLogoutCircleRFill } from "react-icons/ri";
 
 export const MenuDrawer = () => {
+  const recipeRouteReload = () => {
+    window.location.href = "/recipe";
+  };
+
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex h-[65px] items-center justify-between gap-16 rounded-b-xl bg-white px-10 text-2xl shadow-[0_3px_9px_1px] shadow-black/50">
-          <Link href="/recipe">
-            <IoFastFoodOutline className="mb-1 cursor-pointer" />
+        <div className="flex h-[55px] items-center justify-between gap-16 rounded-b-lg bg-white px-10 text-2xl shadow-[0_3px_9px_1px] shadow-black/50">
+          <Link onClick={recipeRouteReload} href="#">
+            <GiApothecary className="mb-1 cursor-pointer hover:text-[#32383F]" />
           </Link>
           <Link href="/recipe-board">
-            <BsBook className="cursor-pointer" />
+            <BsBookHalf className="cursor-pointer hover:text-[#4e565f]" />
           </Link>
           <AiOutlineLogout
-            className="cursor-pointer"
+            className="cursor-pointer hover:text-[#4e565f]"
             onClick={() => void signOut()}
           />
         </div>
