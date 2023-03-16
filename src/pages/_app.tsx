@@ -23,6 +23,8 @@ import { MenuDrawer } from "~/components/MenuDrawer.components";
 import { useState } from "react";
 import { FiChevronsDown, FiChevronsUp, FiMenu } from "react-icons/fi";
 import { ImMenu3 } from "react-icons/im";
+import { GiHamburger } from "react-icons/gi";
+import { HiOutlineSwitchVertical } from "react-icons/hi";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -49,10 +51,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
         className={`${inter.variable} ${ptSansNarrow.variable} h-screen font-inter`}
       >
         <div
-          className={`fixed top-0 left-0 flex h-screen w-full transform flex-col items-center justify-center transition-all duration-300 ${
+          className={`absolute top-0 left-0 flex h-screen w-full transform flex-col items-center justify-center transition-all duration-300 ${
             isMenuDrawerOpen
-              ? "h-[65px] translate-y-0"
-              : "h-1/6 -translate-y-full"
+              ? "h-[55px] translate-y-0"
+              : "h-8 -translate-y-full"
           }`}
         >
           {shouldRenderHeader && <MenuDrawer />}
@@ -60,16 +62,16 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <div className="flex justify-center">
           <button
             className={`absolute transition-all duration-300 ${
-              isMenuDrawerOpen ? "top-[80px]" : "top-3"
+              isMenuDrawerOpen ? "top-[80px]" : "top-6"
             }`}
             onClick={isMenuDrawerOpen ? closeMenuDrawer : openMenuDrawer}
           >
             {shouldRenderHeader && (
               <>
                 {isMenuDrawerOpen ? (
-                  <FiChevronsUp className="text-xl hover:hover:text-[#a2acb9]" />
+                  <FiChevronsUp className="text-xl hover:hover:text-[#4e565f]" />
                 ) : (
-                  <FiMenu className="text-xl hover:hover:text-[#a2acb9]" />
+                  <HiOutlineSwitchVertical className="text-xl hover:hover:text-[#4e565f]" />
                 )}
               </>
             )}
