@@ -51,7 +51,7 @@ export const GenerateRecipeForm = ({
 
   return (
     <>
-      <div className="w-full rounded-lg bg-white shadow-[0_15px_20px_10px] shadow-black/50 md:mx-5 md:grid md:max-h-[691px] md:w-fit md:grid-cols-[1fr_1fr] md:shadow-[10px_15px_20px_10px] md:shadow-black/50">
+      <div className="w-full rounded-lg bg-[#FFF9F5] shadow-[0_15px_20px_10px] shadow-black/50 md:mx-5 md:grid md:max-h-[691px] md:w-fit md:grid-cols-[1fr_1fr] md:shadow-[10px_15px_20px_10px] md:shadow-black/50">
         {/* Column 1 */}
         <form
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -102,6 +102,7 @@ export const GenerateRecipeForm = ({
               <option value="beef">Beef</option>
               <option value="pork">Pork</option>
               <option value="turkey">Turkey</option>
+              <option value="fish">Fish</option>
               <option value="egg">Egg</option>
               <option value="plant-based protein">Planet-Based Protein</option>
             </select>
