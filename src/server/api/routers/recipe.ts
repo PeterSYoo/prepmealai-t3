@@ -7,6 +7,7 @@ export const recipeRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         dishType: z.string(),
+        proteinChoice: z.string(),
         description: z.string(),
         ingredients: z.array(z.string()),
         calories: z.string(),
@@ -27,6 +28,7 @@ export const recipeRouter = createTRPCRouter({
           data: {
             name: input.name,
             dishType: input.dishType,
+            proteinChoice: input.proteinChoice,
             description: input.description,
             ingredients: input.ingredients,
             calories: input.calories,
