@@ -1,114 +1,57 @@
-import { Fragment } from "react";
 import { api } from "~/utils/api";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export const SavedRecipesCard = ({
   recipe,
   refetch,
+  i,
 }: {
   recipe: any;
   refetch: any;
+  i: number;
 }) => {
-  const mutation = api.recipe.deleteRecipe.useMutation();
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: recipe?.id });
 
-  const handleDelete = async () => {
-    await mutation.mutateAsync({ id: recipe?.id });
-    refetch();
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition: transition
+      ? `transform ${transition}ms ease-in-out`
+      : undefined,
   };
 
+  const deleteRecipe = api.recipe.deleteRecipe.useMutation();
+
+  // const handleDelete = async () => {
+  //   await mutation.mutateAsync({ id: recipe?.id });
+  //   refetch();
+  // };
+
   return (
-    <>
-      <div className="flex flex-col gap-2">
-        <div className="flex w-full flex-col gap-3 border border-black bg-white p-3 text-sm">
-          {/* Name */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Name:</p>
-            <p>{recipe?.name}</p>
-          </div>
-          {/*  */}
-          {/* Type of Dish */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Dish Type:</p>
-            <p>{recipe?.dishType}</p>
-          </div>
-          {/*  */}
-          {/* Choice of Protein */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Choice of Protein:</p>
-            <p>{recipe?.proteinChoice}</p>
-          </div>
-          {/*  */}
-          {/* Description */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Description:</p>
-            <p>{recipe?.description}</p>
-          </div>
-          {/*  */}
-          {/* Ingredients */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Ingredients:</p>
-            <ul className="flex list-disc flex-col gap-1 pl-5">
-              {recipe?.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-          </div>
-          {/*  */}
-          {/* Calories */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Calories:</p>
-            <p>{recipe?.calories}</p>
-          </div>
-          {/*  */}
-          {/* Protein */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Protein(grams):</p>
-            <p>{recipe?.protein}</p>
-          </div>
-          {/*  */}
-          {/* Fat */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Fat(grams):</p>
-            <p>{recipe?.fat}</p>
-          </div>
-          {/*  */}
-          {/* Carbohydrates */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Carbs(grams):</p>
-            <p>{recipe?.carb}</p>
-          </div>
-          {/*  */}
-          {/* Preparation Time */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Preparation Time:</p>
-            <p>{recipe?.prepTime}</p>
-          </div>
-          {/*  */}
-          {/* Cooking Time */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Cooking Time:</p>
-            <p>{recipe?.cookingTime}</p>
-          </div>
-          {/*  */}
-          {/* Instructions */}
-          <div className="grid grid-cols-[135px_1fr]">
-            <p className="font-medium">Instructions:</p>
-            <ol className="flex flex-col gap-1">
-              {recipe?.instructions.map((instruction, index) => (
-                <li key={index}>{instruction}</li>
-              ))}
-            </ol>
-          </div>
-          {/*  */}
+    <section
+      className="bg-start mb-[50px] grid min-h-[380px] w-[260px] grid-rows-[80px_1fr_130px] rounded-[25px] border border-[#D9CCC3] bg-white bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679034955/PrepMeal%20AI/Recipe%20Board/Ellipse_4_2_zoytb3.png')] bg-no-repeat px-[24px] pt-[19px] pb-[27px] shadow-[3px_3px_10px_1px] shadow-black/30"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
+      {/* Row 1 */}
+      <div className="flex gap-[17px]">
+        <div className="flex h-[29px] w-full max-w-[29px] items-center justify-center rounded-full bg-white">
+          {i + 1}
         </div>
-        <div className="flex w-full justify-end">
-          <button
-            onClick={handleDelete}
-            className="border border-black bg-white px-4 py-1 font-semibold transition hover:bg-[#6a6967] hover:text-white"
-          >
-            Delete
-          </button>
-        </div>
+        <p className="text-[14px] font-bold">{recipe?.name}</p>
       </div>
-    </>
+      {/*  */}
+      {/* Row 2 */}
+      <div className="flex justify-center">
+        <p className="text-[14px]">{recipe?.description}</p>
+      </div>
+      {/*  */}
+      {/* Row 3 */}
+      <div className="bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679030364/PrepMeal%20AI/Recipe%20Board/salmon-circle_fboiai.png')] bg-center bg-no-repeat"></div>
+      {/*  */}
+    </section>
   );
 };
