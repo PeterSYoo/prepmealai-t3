@@ -47,5 +47,7 @@ recipe.json
 /src/components/drafts
 /src/components/motion
 /src/components/kanban
+/src/components/dashboard
 /src/pages/motion
 /src/pages/kanban
+/src/pages/dashboard
