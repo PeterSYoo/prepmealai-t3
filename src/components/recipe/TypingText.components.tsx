@@ -16,7 +16,7 @@ export const TypingText = ({ texts }: { texts: string[] }) => {
         setTimeout(() => {
           setCurrentTextIndex((currentTextIndex + 1) % texts.length);
           setIsFadingOut(false);
-        }, 3500);
+        }, 2500);
       }
     }, 100);
     return () => clearInterval(interval);
