@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { GenerateRecipeForm } from "~/components/recipe/GenerateRecipeForm.components";
 import { GeneratingRecipe } from "~/components/recipe/GeneratingRecipe.components";
 import { GeneratedRecipe } from "~/components/recipe/GeneratedRecipe.components";
-
+import { Error } from "~/components/recipe/Error.components";
+//     Return the recipe as an RFC8259 compliant JSON response following this format:
 const RecipePage = () => {
   const [recipe, setRecipe] = useState<any>([]);
+  const [isError, setIsError] = useState<boolean>(false);
   const [isForm, setIsForm] = useState<boolean>(true);
 
   const mutation = api.openai.postOpenai.useMutation();
@@ -24,7 +26,7 @@ const RecipePage = () => {
       {
         "name": "string",
         "dishType": "string",
-        "proteinChoice: "string",
+        "proteinChoice": "string",
         "description": "string",
         "ingredients": ["string", "string", "string"],
         "calories": "string",
@@ -46,14 +48,16 @@ const RecipePage = () => {
   };
 
   useEffect(() => {
-    if (mutation.data?.data.choices[0]) {
+    if (mutation.data?.success === false) {
+      setIsError(true);
+    } else if (mutation.data?.success === true) {
       setRecipe(JSON.parse(mutation.data?.data.choices[0].message.content));
     }
   }, [mutation.data]);
 
   return (
     <>
-      <main className="flex h-full flex-col items-center justify-center bg-[#FFF9F5]">
+      <main className="flex h-screen flex-col items-center justify-center bg-[#FFF9F5]">
         {/* Recipe Generator Form */}
         {isForm && (
           <GenerateRecipeForm
@@ -65,8 +69,11 @@ const RecipePage = () => {
         {/* Generating Recipe */}
         {mutation.status === "loading" && <GeneratingRecipe />}
         {/*  */}
+        {/* If Error */}
+        {isError && <Error setIsError={setIsError} setIsForm={setIsForm} />}
+        {/*  */}
         {/* Generated Recipe */}
-        {mutation.status === "success" && <GeneratedRecipe recipe={recipe} />}
+        {mutation.data?.success === true && <GeneratedRecipe recipe={recipe} />}
         {/*  */}
       </main>
     </>
