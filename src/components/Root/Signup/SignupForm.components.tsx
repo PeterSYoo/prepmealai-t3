@@ -106,7 +106,7 @@ export const SignupForm = ({
             {...register("email")}
             placeholder="type here"
             type="text"
-            className="w-full border border-black bg-[#FFF4EC] px-2 py-2 placeholder:text-[#aaa8a6] focus:outline-none"
+            className="w-full border border-black bg-[#FFF9F5] px-2 py-2 placeholder:text-[#aaa8a6] focus:outline-none"
           />
           {errors.email && (
             <p className="text-sm text-red-600">{errors.email.message}</p>
@@ -116,12 +116,12 @@ export const SignupForm = ({
         {/* Password */}
         <label className="flex flex-col gap-1">
           <p className="font-medium">Password:</p>
-          <div className="flex w-full items-center border border-black bg-[#FFF4EC]">
+          <div className="flex w-full items-center border border-black bg-[#FFF9F5]">
             <input
               {...register("password")}
               placeholder="type here"
               type={showPassword ? "text" : "password"}
-              className="h-full w-full bg-[#FFF4EC] py-3 px-2 placeholder:text-[#aaa8a6] focus:outline-none"
+              className="h-full w-full bg-[#FFF9F5] py-3 px-2 placeholder:text-[#aaa8a6] focus:outline-none"
             />
             {showPassword ? (
               <RiEye2Line
@@ -143,12 +143,12 @@ export const SignupForm = ({
         {/* Confirm Password */}
         <label className="flex flex-col gap-1">
           <p className="font-medium">Confirm Password:</p>
-          <div className="flex w-full items-center border border-black bg-[#FFF4EC]">
+          <div className="flex w-full items-center border border-black bg-[#FFF9F5]">
             <input
               {...register("cpassword")}
               placeholder="type here"
               type={showPassword ? "text" : "password"}
-              className="w-full bg-[#FFF4EC] px-2 py-2 placeholder:text-[#aaa8a6] focus:outline-none"
+              className="w-full bg-[#FFF9F5] px-2 py-2 placeholder:text-[#aaa8a6] focus:outline-none"
             />
             {showPassword ? (
               <RiEye2Line
