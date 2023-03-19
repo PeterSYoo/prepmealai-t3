@@ -51,7 +51,7 @@ export const GenerateRecipeForm = ({
 
   return (
     <>
-      <div className="w-full rounded-lg bg-[#FFF9F5] shadow-[0_15px_20px_10px] shadow-black/50 md:mx-5 md:grid md:max-h-[691px] md:w-fit md:grid-cols-[1fr_1fr] md:shadow-[10px_15px_20px_10px] md:shadow-black/50">
+      <div className="w-full rounded-2xl bg-[#FFF9F5] shadow-[0_15px_20px_10px] shadow-black/50 md:mx-5 md:grid md:max-h-[691px] md:w-fit md:grid-cols-[1fr_1fr] md:shadow-[10px_15px_20px_10px] md:shadow-black/50">
         {/* Column 1 */}
         <form
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -59,12 +59,10 @@ export const GenerateRecipeForm = ({
           className="mx-auto flex w-full max-w-[500px] flex-col items-center justify-center gap-5 px-5 py-5"
         >
           {/* Title */}
-          <h1 className="font-ptSansNarrow text-4xl font-bold">
-            Recipe Generator
-          </h1>
+          <h1 className="text-3xl font-bold">Generate a Recipe</h1>
           {/*  */}
           {/* Calories */}
-          <label className="w-full pt-5">
+          <label className="w-full pt-8">
             <p className="">Calories:</p>
             <input
               {...register("calories")}
@@ -125,7 +123,7 @@ export const GenerateRecipeForm = ({
             src="https://res.cloudinary.com/dryh1nvhk/image/upload/v1678821553/PrepMeal%20AI/Generator/beechmore-books-0S2rRstB_9M-unsplash_1_qve6rr.png"
             alt="recipe book"
             fill
-            className="rounded-r-lg"
+            className="rounded-r-2xl"
           />
         </div>
         {/*  */}
