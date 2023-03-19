@@ -123,6 +123,7 @@ export const recipeRouter = createTRPCRouter({
       } catch (error) {
         console.log(error);
         throw {
+          success: false,
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to delete recipe.",
         };
