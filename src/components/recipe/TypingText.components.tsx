@@ -18,17 +18,19 @@ export const TypingText = ({ texts }: { texts: string[] }) => {
           setIsFadingOut(false);
         }, 2500);
       }
-    }, 100);
+    }, 50);
     return () => clearInterval(interval);
   }, [texts, currentTextIndex]);
 
   return (
-    <p
-      className={`bg-black bg-clip-text pb-32 text-2xl font-bold text-transparent ${
-        isFadingOut ? "animate-fade-out" : "animate-fade-in"
-      }`}
-    >
-      {displayText}
-    </p>
+    <section className="px-24">
+      <p
+        className={`bg-black bg-clip-text pb-32 text-2xl font-bold text-transparent ${
+          isFadingOut ? "animate-fade-out" : "animate-fade-in"
+        }`}
+      >
+        {displayText}
+      </p>
+    </section>
   );
 };
