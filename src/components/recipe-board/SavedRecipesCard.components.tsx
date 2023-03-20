@@ -6,10 +6,16 @@ export const SavedRecipesCard = ({
   recipe,
   refetch,
   i,
+  activeId,
+  isDragging,
+  handleRecipeClick,
 }: {
   recipe: any;
   refetch: any;
   i: number;
+  activeId: any;
+  isDragging: any;
+  handleRecipeClick: any;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: recipe?.id });
@@ -30,11 +36,14 @@ export const SavedRecipesCard = ({
 
   return (
     <section
-      className="bg-start mb-[50px] grid min-h-[380px] w-[260px] grid-rows-[80px_1fr_130px] rounded-[25px] border border-[#D9CCC3] bg-white bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679034955/PrepMeal%20AI/Recipe%20Board/Ellipse_4_2_zoytb3.png')] bg-no-repeat px-[24px] pt-[19px] pb-[27px] shadow-[3px_3px_10px_1px] shadow-black/30"
+      className={`bg-start mb-[50px] grid min-h-[380px] w-[260px] break-inside-avoid grid-rows-[80px_1fr_130px] rounded-[25px] border border-[#D9CCC3] bg-white bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679034955/PrepMeal%20AI/Recipe%20Board/Ellipse_4_2_zoytb3.png')] bg-no-repeat px-[24px] pt-[19px] pb-[27px] shadow-[3px_3px_10px_1px] shadow-black/30 ${
+        isDragging ? "invisible" : ""
+      }`}
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
+      onClick={() => handleRecipeClick(recipe)}
     >
       {/* Row 1 */}
       <div className="flex gap-[17px]">
