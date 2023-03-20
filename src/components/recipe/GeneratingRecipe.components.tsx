@@ -6,11 +6,11 @@ export const GeneratingRecipe = () => {
       <main className="flex h-screen w-screen items-center justify-center">
         <TypingText
           texts={[
-            "The AI is working on your recipe.",
-            "It's gathering all the ingredients for you.",
-            "Still generating...",
-            "Sorry about the wait it's almost ready.",
-            "It's just finalizing the ingredients, don't worry!",
+            "Your recipe is in good hands with our trusty AI. It's hard at work making sure everything is just right!",
+            "Get excited - the AI is on a mission to gather all the ingredients you need for your delicious recipe!",
+            "Don't worry, the AI hasn't forgotten about you! It's just putting the finishing touches on your recipe.",
+            "The AI is cooking up something special just for you - sorry for the wait, but it'll be worth it!",
+            "Hang tight while the AI does its thing. Your recipe is almost ready to go, and it's going to be amazing!",
           ]}
         />
       </main>
