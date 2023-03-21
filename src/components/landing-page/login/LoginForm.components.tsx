@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiEyeCloseLine, RiEye2Line } from "react-icons/ri";
 import { useState } from "react";
 import useHandleLogin from "~/hooks/useHandleLogin";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { EmailDoesntExistModal } from "./EmailDoesntExistModal.components";
 
@@ -64,7 +63,6 @@ export const LoginForm = ({
 
   // React Query
   const { mutateAsync, isLoading } = useHandleLogin(
-    signIn,
     setIsEmailDoesntExistModal,
     router
   );
