@@ -3,6 +3,7 @@ import {
   getServerSession,
   type NextAuthOptions,
   type DefaultSession,
+  type Session,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
@@ -11,6 +12,11 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import * as bcrypt from "bcrypt";
+import type { JWT } from "next-auth/jwt";
+
+interface IToken extends JWT {
+  uid: string;
+}
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -43,14 +49,10 @@ export const authOptions: NextAuthOptions = {
     signIn() {
       return true;
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    session({ session, token }: any) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    session({ session, token }: { session: Session; token: JWT }) {
       if (session?.user) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        session.user.id = token.uid;
+        session.user.id = token.uid as string;
       }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return session;
     },
     jwt({ user, token }) {
