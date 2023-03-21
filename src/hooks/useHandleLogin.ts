@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useMutation } from "@tanstack/react-query";
+import { signIn } from "next-auth/react";
 import type { NextRouter } from "next/router";
 
 type Data = {
@@ -11,8 +8,6 @@ type Data = {
 };
 
 const useHandleLogin = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  signIn: any,
   setIsModal: (arg0: boolean) => void,
   router: NextRouter
 ) => {
@@ -24,12 +19,15 @@ const useHandleLogin = (
         password: data.password,
         callbackUrl: "/recipe",
       });
-      console.log({ status });
-      if (status.error === "No user found with that email!") {
-        setIsModal(true);
-      } else if (status.ok) {
-        if (status.ok && status.url) {
-          await router.push(status.url);
+
+      if (status) {
+        console.log({ status });
+        if (status.error === "No user found with that email!") {
+          setIsModal(true);
+        } else if (status.ok) {
+          if (status.ok && status.url) {
+            await router.push(status.url);
+          }
         }
       }
     } catch (error) {
