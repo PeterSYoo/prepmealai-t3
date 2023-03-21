@@ -1,13 +1,16 @@
-import { BsBook, BsBookFill, BsBookHalf } from "react-icons/bs";
+import { BsBookHalf } from "react-icons/bs";
 import { AiOutlineLogout } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { GiApothecary } from "react-icons/gi";
-import { RiLogoutCircleRFill } from "react-icons/ri";
 
 export const MenuDrawer = () => {
   const recipeRouteReload = () => {
     window.location.href = "/recipe";
+  };
+
+  const recipeBoardRouteReload = () => {
+    window.location.href = "/recipe-board";
   };
 
   return (
@@ -17,7 +20,7 @@ export const MenuDrawer = () => {
           <Link onClick={recipeRouteReload} href="#">
             <GiApothecary className="mb-1 cursor-pointer hover:text-[#32383F]" />
           </Link>
-          <Link href="/recipe-board">
+          <Link onClick={recipeBoardRouteReload} href="#">
             <BsBookHalf className="cursor-pointer hover:text-[#4e565f]" />
           </Link>
           <AiOutlineLogout
