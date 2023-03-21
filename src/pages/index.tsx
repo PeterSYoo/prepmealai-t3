@@ -1,9 +1,9 @@
 import { type GetServerSidePropsContext, type NextPage } from "next";
 import Head from "next/head";
-import { AuthProviders } from "~/components/root/AuthProviders.components";
-import { LoginForm } from "~/components/root/login/LoginForm.components";
+import { AuthProviders } from "~/components/landing-page/AuthProviders.components";
+import { LoginForm } from "~/components/landing-page/login/LoginForm.components";
 import { useState } from "react";
-import { SignupForm } from "~/components/root/signup/SignupForm.components";
+import { SignupForm } from "~/components/landing-page/signup/SignupForm.components";
 import { getServerAuthSession } from "~/server/auth";
 import { FiChevronsDown } from "react-icons/fi";
 import { RxDividerVertical } from "react-icons/rx";
