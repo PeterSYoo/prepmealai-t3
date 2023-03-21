@@ -1,9 +1,10 @@
+import { IRecipe } from "additional";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { AiOutlineHeart } from "react-icons/ai";
 import { api } from "~/utils/api";
 
-export const GeneratedRecipe = ({ recipe }: { recipe: any }) => {
+export const GeneratedRecipe = ({ recipe }: { recipe: IRecipe }) => {
   const router = useRouter();
 
   const postRecipe = api.recipe.postRecipe.useMutation();
