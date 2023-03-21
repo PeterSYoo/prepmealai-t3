@@ -1,22 +1,24 @@
 import {
   DndContext,
   closestCenter,
-  useDroppable,
   DragOverlay,
   useSensors,
   useSensor,
   PointerSensor,
   KeyboardSensor,
+  type UniqueIdentifier,
+  type DragEndEvent,
+  type DragStartEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
-  verticalListSortingStrategy,
-  horizontalListSortingStrategy,
   rectSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { Fragment, useCallback, useEffect, useState } from "react";
+import type { IRecipe } from "additional";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { DroppableDeleteArea } from "~/components/recipe-board/DroppableDeleteArea.components";
 import { Recipe } from "~/components/recipe-board/Recipe.components";
 import { RecipeDragOverlay } from "~/components/recipe-board/RecipeDragOverlay.components";
@@ -25,12 +27,15 @@ import { api } from "~/utils/api";
 
 const RecipeBoardPage = () => {
   const [isRecipe, setIsRecipe] = useState<boolean>(false);
-  const [selectedRecipe, setSelectedRecipe] = useState<any>(null);
+  const [selectedRecipe, setSelectedRecipe] = useState<IRecipe | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [activeId, setActiveId] = useState<any>(null);
-  const [recipes, setRecipes] = useState<any>([]);
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [recipes, setRecipes] = useState<IRecipe[]>([]);
+  const [hasChanges, setHasChanges] = useState<boolean>(false);
   const allRecipes = api.recipe.getAllRecipes.useQuery();
-  const deleteRecipe = api.recipe.deleteRecipe.useMutation();
+  const replaceRecipes = api.recipe.replaceRecipes.useMutation();
+
+  const router = useRouter();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -43,43 +48,48 @@ const RecipeBoardPage = () => {
     })
   );
 
-  const handleDragStart = (event) => {
+  const handleDragStart = (event: DragStartEvent) => {
     console.log("Drag start called");
     const { active } = event;
     setActiveId(active.id);
     setIsDragging(true);
   };
 
-  const handleDragEnd = async (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     setIsDragging(false);
     console.log("Drag end called");
     const { active, over } = event;
-    console.log("ACTIVE: " + active.id);
-    console.log("OVER :" + over.id);
 
     console.log("over: ", over);
-    if (over && over.id === "delete-container") {
+    if (over && over.id && over.id === "delete-container") {
       console.log("Recipe deleted:", active.id);
-      setRecipes((items: any) =>
-        items.filter((item: any) => item.id !== active.id)
-      ); // Remove the item from the state
-    } else if (active.id !== over.id) {
-      setRecipes((items: any) => {
-        const activeIndex = items.findIndex(
-          (item: any) => item.id === active.id
-        );
-        const overIndex = items.findIndex((item: any) => item.id === over.id);
+      setRecipes((items) => items.filter((item) => item.id !== active.id)); // Remove the item from the state
+      setHasChanges(true);
+    } else if (over && over.id && active.id !== over.id) {
+      setRecipes((items) => {
+        const activeIndex = items.findIndex((item) => item.id === active.id);
+        const overIndex = items.findIndex((item) => item.id === over.id);
 
         const newItems = arrayMove(items, activeIndex, overIndex);
+        setHasChanges(true);
         return newItems;
       });
     }
   };
 
-  const handleRecipeClick = (recipe: any) => {
+  const handleRecipeClick = (recipe: IRecipe) => {
     console.log("handle recipe click called");
     setSelectedRecipe(recipe);
     setIsRecipe(true);
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      await replaceRecipes.mutateAsync({ recipes });
+      setHasChanges(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -88,10 +98,25 @@ const RecipeBoardPage = () => {
     }
   }, [allRecipes.data]);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (hasChanges) {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [hasChanges, router]);
+
   return (
     <>
       {isRecipe ? (
-        <Recipe recipe={selectedRecipe} />
+        <Recipe recipe={selectedRecipe} setIsRecipe={setIsRecipe} />
       ) : (
         <>
           <DndContext
@@ -103,14 +128,29 @@ const RecipeBoardPage = () => {
           >
             <SortableContext items={recipes} strategy={rectSortingStrategy}>
               <main className="h-full bg-[#FFF9F5]">
-                <div className="mx-auto bg-[#FFF9F5] px-5 md:max-w-[1440px]">
-                  <div className="mx-auto flex flex-wrap justify-start gap-[50px] bg-[#FFF9F5] px-[105px] pt-[220px] md:columns-3">
+                <div className="mx-auto bg-[#FFF9F5] px-5 md:max-w-[1540px]">
+                  <div className="mx-auto flex flex-wrap justify-start gap-[20px] bg-[#FFF9F5] px-[105px] pt-[220px] md:columns-3">
                     {/* Delete Recipe Container */}
                     <DroppableDeleteArea />
                     {/*  */}
+                    {/* Save Button */}
+                    <div className="flex w-full justify-center">
+                      <button
+                        onClick={handleSaveChanges}
+                        disabled={hasChanges ? false : true}
+                        className={` ${
+                          hasChanges
+                            ? "rounded-lg border border-dashed border-[#b7afaa] bg-[#DBD7CC] px-4 py-2 text-[17px] font-medium hover:bg-[#ece9e1]"
+                            : "rounded-lg border border-dashed border-[#b7afaa] bg-[#DBD7CC] px-4 py-2 text-[17px] font-medium opacity-30"
+                        }`}
+                      >
+                        Save Changes
+                      </button>
+                    </div>
+                    {/*  */}
                     {/* Recipe Cards */}
                     <div className="flex w-full justify-center">
-                      <div className="mb-[200px] columns-1 gap-[50px] rounded-lg border border-dashed border-[#b7afaa] p-10 md:columns-3">
+                      <div className="mb-[100px] flex flex-wrap gap-[50px] rounded-lg border border-dashed border-[#b7afaa] p-10">
                         {recipes?.map((recipe, i) => (
                           <SavedRecipesCard
                             key={recipe.id}
