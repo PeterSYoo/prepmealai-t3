@@ -1,6 +1,8 @@
 import { api } from "~/utils/api";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { IRecipe } from "additional";
+import { UniqueIdentifier } from "@dnd-kit/core";
 
 export const SavedRecipesCard = ({
   recipe,
@@ -10,12 +12,12 @@ export const SavedRecipesCard = ({
   isDragging,
   handleRecipeClick,
 }: {
-  recipe: any;
-  refetch: any;
+  recipe: IRecipe;
+  refetch: () => void;
   i: number;
-  activeId: any;
-  isDragging: any;
-  handleRecipeClick: any;
+  activeId: UniqueIdentifier | null;
+  isDragging: boolean;
+  handleRecipeClick: (recipe: IRecipe) => void;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: recipe?.id });
@@ -26,13 +28,6 @@ export const SavedRecipesCard = ({
       ? `transform ${transition}ms ease-in-out`
       : undefined,
   };
-
-  const deleteRecipe = api.recipe.deleteRecipe.useMutation();
-
-  // const handleDelete = async () => {
-  //   await mutation.mutateAsync({ id: recipe?.id });
-  //   refetch();
-  // };
 
   return (
     <section
