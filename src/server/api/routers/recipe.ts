@@ -102,6 +102,87 @@ export const recipeRouter = createTRPCRouter({
       };
     }
   }),
+  replaceRecipes: protectedProcedure
+    .input(
+      z.object({
+        recipes: z.array(
+          z.object({
+            name: z.string(),
+            dishType: z.string(),
+            proteinChoice: z.string(),
+            description: z.string(),
+            ingredients: z.array(z.string()),
+            calories: z.string(),
+            protein: z.string(),
+            fat: z.string(),
+            carb: z.string(),
+            prepTime: z.string(),
+            cookingTime: z.string(),
+            instructions: z.array(z.string()),
+          })
+        ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const user = ctx.session.user;
+
+        // Delete all recipes related to user
+        const deletedRecipes = await ctx.prisma.recipe.deleteMany({
+          where: {
+            userId: user.id,
+          },
+        });
+
+        // If no recipes were deleted, return an error
+        if (deletedRecipes.count === 0) {
+          throw {
+            success: false,
+            code: "NO_RECIPES_DELETED",
+            message: "No recipes were found for deletion.",
+          };
+        }
+
+        // Create new recipes after deletion
+        const newRecipes = [];
+
+        for (const recipe of input.recipes) {
+          const newRecipe = await ctx.prisma.recipe.create({
+            data: {
+              name: recipe.name,
+              dishType: recipe.dishType,
+              proteinChoice: recipe.proteinChoice,
+              description: recipe.description,
+              ingredients: recipe.ingredients,
+              calories: recipe.calories,
+              protein: recipe.protein,
+              fat: recipe.fat,
+              carb: recipe.carb,
+              prepTime: recipe.prepTime,
+              cookingTime: recipe.cookingTime,
+              instructions: recipe.instructions,
+              userId: user.id,
+            },
+          });
+
+          newRecipes.push(newRecipe);
+        }
+
+        // Return success message
+        return {
+          success: true,
+          message: "Recipes replaced succesfully.",
+          newRecipes,
+        };
+      } catch (error) {
+        console.log(error);
+        throw {
+          success: false,
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to replace recipes.",
+        };
+      }
+    }),
   deleteRecipe: protectedProcedure
     .input(
       z.object({
