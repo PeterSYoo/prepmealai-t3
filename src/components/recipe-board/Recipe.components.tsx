@@ -1,9 +1,16 @@
+import type { IRecipe } from "additional";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { AiOutlineHeart } from "react-icons/ai";
+import { VscDebugStepBack } from "react-icons/vsc";
 import { api } from "~/utils/api";
 
-export const Recipe = ({ recipe }: { recipe: any }) => {
+export const Recipe = ({
+  recipe,
+  setIsRecipe,
+}: {
+  recipe: IRecipe | null;
+  setIsRecipe: (arg0: boolean) => void;
+}) => {
   const router = useRouter();
 
   const postRecipe = api.recipe.postRecipe.useMutation();
@@ -11,39 +18,42 @@ export const Recipe = ({ recipe }: { recipe: any }) => {
 
   return (
     <>
-      <main className="grid h-full w-full grid-rows-[288px_1fr]">
+      <section className="grid h-full w-full grid-rows-[288px_1fr]">
         {/* Row 1 */}
         <header
           className={
             (recipe?.proteinChoice.includes("Pork") &&
-              `https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954528/PrepMeal%20AI/Recipe/pork_jhfy8v.png')] bg-cover bg-center bg-no-repeat`) ||
+              `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954528/PrepMeal%20AI/Recipe/pork_jhfy8v.png')] bg-cover bg-center bg-no-repeat`) ||
             (recipe?.proteinChoice.includes("Chicken") &&
               `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954221/PrepMeal%20AI/Recipe/chicken_zzcbbh.png')] bg-cover bg-center bg-no-repeat`) ||
             (recipe?.proteinChoice.includes("Beef") &&
-              `https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954353/PrepMeal%20AI/Recipe/beef_oexrh2.png')] bg-cover bg-center bg-no-repeat`) ||
+              `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954353/PrepMeal%20AI/Recipe/beef_oexrh2.png')] bg-cover bg-center bg-no-repeat`) ||
             (recipe?.proteinChoice.includes("Turkey") &&
-              `https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954631/PrepMeal%20AI/Recipe/turkey_xpcgwb.png')] bg-cover bg-center bg-no-repeat`) ||
+              `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954631/PrepMeal%20AI/Recipe/turkey_xpcgwb.png')] bg-cover bg-center bg-no-repeat`) ||
             (recipe?.proteinChoice.includes("Fish") &&
-              `https://res.cloudinary.com/dryh1nvhk/image/upload/v1678955785/PrepMeal%20AI/Recipe/fish_ifcdyp.png`) ||
+              `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678955785/PrepMeal%20AI/Recipe/fish_ifcdyp.png`) ||
             (recipe?.proteinChoice.includes("Plant") &&
-              `https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954829/PrepMeal%20AI/Recipe/lentil_fvkiv2.png`) ||
+              `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954829/PrepMeal%20AI/Recipe/lentil_fvkiv2.png`) ||
             (recipe?.proteinChoice.includes("Lentil") &&
-              `https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954829/PrepMeal%20AI/Recipe/lentil_fvkiv2.png`) ||
+              `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954829/PrepMeal%20AI/Recipe/lentil_fvkiv2.png`) ||
             (recipe?.proteinChoice.includes("Egg") &&
               `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678954708/PrepMeal%20AI/Recipe/egg_c0dzzn.png')] bg-cover bg-center bg-no-repeat`) ||
             `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678934510/PrepMeal%20AI/Recipe/soup_wf5odn.png')] bg-cover bg-center bg-no-repeat`
           }
         >
           <div className="mx-auto flex h-full w-full max-w-[1440px] items-end justify-start pb-[35px] pl-[35px]">
-            <button className="z-10 flex items-center gap-3 rounded-lg border border-[#D9CCC3] bg-[#FFF9F5] px-5 py-[8px] font-bold hover:bg-[#ebe3dd]">
-              <AiOutlineHeart className="text-xl" />
-              SAVE RECIPE
+            <button
+              onClick={() => setIsRecipe(false)}
+              className="z-10 flex items-center gap-3 rounded-lg border border-[#D9CCC3] bg-[#FFF9F5] px-5 py-[8px] font-bold hover:bg-[#ebe3dd]"
+            >
+              <VscDebugStepBack className="text-xl" />
+              BACK TO RECIPE BOARD
             </button>
           </div>
         </header>
         {/*  */}
         {/* Row 2 */}
-        <section className="bg-[#FFF9F5] bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678960055/PrepMeal%20AI/Recipe/bg-shapes_qte5dl.png')] bg-cover bg-center bg-no-repeat">
+        <section className="flex flex-col bg-[#FFF9F5] bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678960055/PrepMeal%20AI/Recipe/bg-shapes_qte5dl.png')] bg-cover bg-center bg-no-repeat px-5">
           <div className="mx-auto max-w-[1440px]">
             {/* Nutrition info */}
             <div className="float-right -mt-16 grid h-[570px] w-[364px] grid-rows-[100px_1fr] rounded-[15px] border-2 border-[#D9CCC3] bg-[#FFF9F5] shadow-[0_10px_30px_1px] shadow-black/50">
@@ -211,7 +221,7 @@ export const Recipe = ({ recipe }: { recipe: any }) => {
               </div>
               {/*  */}
               {/* Instructions */}
-              <div className="flex break-words pb-[200px]">
+              <div className="flex break-words pb-[150px]">
                 <h1 className="w-full max-w-[250px] text-xl font-bold">
                   Instructions:
                 </h1>
@@ -226,7 +236,7 @@ export const Recipe = ({ recipe }: { recipe: any }) => {
           </div>
         </section>
         {/*  */}
-      </main>
+      </section>
     </>
   );
 };
