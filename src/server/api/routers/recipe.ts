@@ -5,18 +5,18 @@ export const recipeRouter = createTRPCRouter({
   postRecipe: protectedProcedure
     .input(
       z.object({
-        name: z.string(),
-        dishType: z.string(),
-        proteinChoice: z.string(),
-        description: z.string(),
-        ingredients: z.array(z.string()),
-        calories: z.string(),
-        protein: z.string(),
-        fat: z.string(),
-        carb: z.string(),
-        prepTime: z.string(),
-        cookingTime: z.string(),
-        instructions: z.array(z.string()),
+        name: z.string().default(""),
+        dishType: z.string().default(""),
+        proteinChoice: z.string().default(""),
+        description: z.string().default(""),
+        ingredients: z.array(z.string()).default([]),
+        calories: z.string().default(""),
+        protein: z.string().default(""),
+        fat: z.string().default(""),
+        carb: z.string().default(""),
+        prepTime: z.string().default(""),
+        cookingTime: z.string().default(""),
+        instructions: z.array(z.string()).default([]),
       })
     )
     .mutation(async ({ ctx, input }) => {
