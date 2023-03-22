@@ -2,6 +2,25 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { env } from "~/env.mjs";
 
+type ChatCompletion = {
+  id: string;
+  object: "chat.completion";
+  created: number;
+  model: string;
+  usage: {
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
+  };
+  choices: [
+    {
+      message: Record<string, unknown>;
+      finish_reason: "stop";
+      index: number;
+    }
+  ];
+};
+
 // Define the schema for the expected JSON format
 const recipeSchema = z.array(
   z.object({
@@ -46,10 +65,13 @@ export const openaiRouter = createTRPCRouter({
         );
 
         try {
-          const data = await response.json();
-          console.log(data.choices[0]);
+          const data: ChatCompletion =
+            (await response.json()) as ChatCompletion;
+          console.log(data);
           // Check if the data matches the expected format
-          const parsedData = await JSON.parse(data.choices[0].message.content);
+          const parsedData = (await JSON.parse(
+            data.choices[0].message.content as string
+          )) as Record<string, unknown>;
           recipeSchema.parse(parsedData);
           return {
             success: true,
@@ -93,7 +115,7 @@ export const openaiRouter = createTRPCRouter({
           }
         );
 
-        const data = await response.json();
+        const data = (await response.json()) as ChatCompletion;
 
         return {
           success: true,
