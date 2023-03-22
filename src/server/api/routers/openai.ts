@@ -40,7 +40,7 @@ const recipeSchema = z.array(
 );
 
 export const openaiRouter = createTRPCRouter({
-  postOpenai: publicProcedure
+  postOpenai: protectedProcedure
     .input(z.object({ content: z.string() }))
     .mutation(async ({ input }) => {
       try {
