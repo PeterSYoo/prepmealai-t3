@@ -1,13 +1,13 @@
-import { signOut } from "next-auth/react";
 import { api } from "~/utils/api";
 import { useEffect, useState } from "react";
 import { GenerateRecipeForm } from "~/components/recipe/GenerateRecipeForm.components";
 import { GeneratingRecipe } from "~/components/recipe/GeneratingRecipe.components";
 import { GeneratedRecipe } from "~/components/recipe/GeneratedRecipe.components";
 import { Error } from "~/components/recipe/Error.components";
-//     Return the recipe as an RFC8259 compliant JSON response following this format:
+import type { IRecipe } from "additional";
+
 const RecipePage = () => {
-  const [recipe, setRecipe] = useState<any>([]);
+  const [recipe, setRecipe] = useState<IRecipe[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isForm, setIsForm] = useState<boolean>(true);
 
@@ -51,7 +51,11 @@ const RecipePage = () => {
     if (mutation.data?.success === false) {
       setIsError(true);
     } else if (mutation.data?.success === true) {
-      setRecipe(JSON.parse(mutation.data?.data.choices[0].message.content));
+      const parsedData = JSON.parse(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        mutation.data?.data.choices[0].message.content
+      ) as IRecipe[];
+      setRecipe(parsedData);
     }
   }, [mutation.data]);
 
