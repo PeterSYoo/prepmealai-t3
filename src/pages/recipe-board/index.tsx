@@ -26,12 +26,15 @@ import { SavedRecipesCard } from "~/components/recipe-board/SavedRecipesCard.com
 import { api } from "~/utils/api";
 
 const RecipeBoardPage = () => {
+  // States ------------------------------------------------
   const [isRecipe, setIsRecipe] = useState<boolean>(false);
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
   const [hasChanges, setHasChanges] = useState<boolean>(false);
+
+  // API | Routing | 3rd Party Libraries | etc. -----------------------
   const allRecipes = api.recipe.getAllRecipes.useQuery();
   const replaceRecipes = api.recipe.replaceRecipes.useMutation();
 
@@ -48,6 +51,7 @@ const RecipeBoardPage = () => {
     })
   );
 
+  // Custom Functions -------------------------------------------
   const handleDragStart = (event: DragStartEvent) => {
     console.log("Drag start called");
     const { active } = event;
@@ -92,6 +96,7 @@ const RecipeBoardPage = () => {
     }
   };
 
+  // UseEffects -----------------------------------------------
   useEffect(() => {
     if (allRecipes.data?.success === true) {
       setRecipes(allRecipes?.data?.recipes);
@@ -113,6 +118,7 @@ const RecipeBoardPage = () => {
     };
   }, [hasChanges, router]);
 
+  // JSX --------------------------------------------------------
   return (
     <>
       {isRecipe ? (
