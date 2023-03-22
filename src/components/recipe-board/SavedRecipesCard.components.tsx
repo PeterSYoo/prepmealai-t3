@@ -1,14 +1,11 @@
-import { api } from "~/utils/api";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { IRecipe } from "additional";
-import { UniqueIdentifier } from "@dnd-kit/core";
+import type { IRecipe } from "additional";
+import type { UniqueIdentifier } from "@dnd-kit/core";
 
 export const SavedRecipesCard = ({
   recipe,
-  refetch,
   i,
-  activeId,
   isDragging,
   handleRecipeClick,
 }: {
@@ -19,8 +16,18 @@ export const SavedRecipesCard = ({
   isDragging: boolean;
   handleRecipeClick: (recipe: IRecipe) => void;
 }) => {
+  // Custom Functions ------------------------------------------
+  const getId = (recipe: IRecipe) => {
+    if (recipe.id) {
+      return recipe.id;
+    } else {
+      throw new Error("Recipe ID is undefined");
+    }
+  };
+
+  // APIs | 3rd party libraries ---------------------------------
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: recipe?.id });
+    useSortable({ id: getId(recipe) });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -29,6 +36,7 @@ export const SavedRecipesCard = ({
       : undefined,
   };
 
+  // JSX ---------------------------------------------
   return (
     <section
       className={`bg-start mb-[50px] grid min-h-[380px] w-[260px] break-inside-avoid grid-rows-[80px_1fr_130px] rounded-[25px] border border-[#D9CCC3] bg-white bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679034955/PrepMeal%20AI/Recipe%20Board/Ellipse_4_2_zoytb3.png')] bg-no-repeat px-[24px] pt-[19px] pb-[27px] shadow-[3px_3px_10px_1px] shadow-black/30 ${
