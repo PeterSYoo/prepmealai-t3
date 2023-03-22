@@ -67,11 +67,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
             {shouldRenderHeader && (
               <>
                 {isMenuDrawerOpen ? (
-                  <div className="rounded-full border border-[#D9CCC3] bg-[#FFF9F5] p-2">
+                  <div className="rounded-full border border-dashed border-[#94857a] bg-white/60 p-2 backdrop-blur-[2px]">
                     <FiChevronsUp className="text-xl hover:hover:text-[#4e565f]" />
                   </div>
                 ) : (
-                  <div className="rounded-full border border-[#D9CCC3] bg-[#FFF9F5] p-2">
+                  <div className="rounded-full border border-dashed border-[#94857a] bg-white/60 p-2 backdrop-blur-[2px]">
                     <HiOutlineSwitchVertical className="text-xl hover:hover:text-[#4e565f]" />
                   </div>
                 )}
