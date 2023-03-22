@@ -33,7 +33,31 @@ export const RecipeDragOverlay = forwardRef(
         </div>
         {/*  */}
         {/* Row 3 */}
-        <div className="bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679030364/PrepMeal%20AI/Recipe%20Board/salmon-circle_fboiai.png')] bg-center bg-no-repeat"></div>
+        <div
+          className={`
+  ${
+    (recipe?.proteinChoice.toLowerCase().includes("beef") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/beef-c_bbuvfi.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("chicken") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453768/PrepMeal%20AI/Recipe%20Board/chicken-c_setauk.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("turkey") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/turkey-c_kwdk9o.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("egg") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/egg-c_drfqjv.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("salmon") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679030364/PrepMeal%20AI/Recipe%20Board/salmon-circle_fboiai.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("pork") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/pork-c_fe6mxx.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("lobster") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/lobster-c_m0zlim.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("tofu") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/tofu-c_lwgxkn.png")]') ||
+    (recipe?.proteinChoice.toLowerCase().includes("quinoa") &&
+      'bg-[url("https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/quinoa-c_r2ycbc.png")]') ||
+    `bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679453767/PrepMeal%20AI/Recipe%20Board/default-c_d1youf.png')]`
+  } 
+  mx-auto h-[130px] w-[130px] rounded-full border-4 border-[#DBD7CC]`}
+        ></div>
         {/*  */}
       </section>
     );
