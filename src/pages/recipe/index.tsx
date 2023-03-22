@@ -5,6 +5,7 @@ import { GeneratingRecipe } from "~/components/recipe/GeneratingRecipe.component
 import { GeneratedRecipe } from "~/components/recipe/GeneratedRecipe.components";
 import { Error } from "~/components/recipe/Error.components";
 import type { IRecipe } from "additional";
+import useFetchOpenAi from "~/hooks/useFetchOpenAi";
 
 const RecipePage = () => {
   // States -------------------------------------------------------
@@ -13,14 +14,17 @@ const RecipePage = () => {
   const [isForm, setIsForm] = useState<boolean>(true);
 
   // API -------------------------------------------------------
-  const mutation = api.openai.postOpenai.useMutation();
+  // const mutation = api.openai.postOpenai.useMutation();
+
+  const { mutateAsync, isLoading, data, status } = useFetchOpenAi();
 
   // Custom Functions -------------------------------------------
-  const handleGenerateRecipe = (
+  const handleGenerateRecipe = async (
     calories: string,
     protein: string,
     proteinChoice: string
   ) => {
+    console.log("handle generate recipe called");
     const content = `
     Generate a random recipe with ${calories} calories and ${protein}g of ${proteinChoice} protein, dish name and dish type should be different from the past 3 prompts.
 
@@ -47,21 +51,38 @@ const RecipePage = () => {
     ]     
     `;
 
-    mutation.mutate({ content });
+    // mutation.mutate({ content });
+    await mutateAsync(content);
   };
 
+  console.log({ data: data?.data?.choices[0].message.content });
+  console.log({ data: data?.success });
+
   // UseEffects -------------------------------------------------------
+
+  // useEffect(() => {
+  //   if (mutation.data?.success === false) {
+  //     setIsError(true);
+  //   } else if (mutation.data?.success === true) {
+  //     const parsedData = JSON.parse(
+  //       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  //       mutation.data?.data.choices[0].message.content
+  //     ) as IRecipe[];
+  //     setRecipe(parsedData);
+  //   }
+  // }, [mutation.data]);
+
   useEffect(() => {
-    if (mutation.data?.success === false) {
+    if (data?.success === false) {
       setIsError(true);
-    } else if (mutation.data?.success === true) {
+    } else if (data?.success === true) {
       const parsedData = JSON.parse(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-        mutation.data?.data.choices[0].message.content
+        data?.data?.choices[0].message.content as string
       ) as IRecipe[];
       setRecipe(parsedData);
     }
-  }, [mutation.data]);
+  }, [data?.data, data?.success]);
 
   // JSX -------------------------------------------------------
   return (
@@ -76,13 +97,13 @@ const RecipePage = () => {
         )}
         {/*  */}
         {/* Generating Recipe */}
-        {mutation.status === "loading" && <GeneratingRecipe />}
+        {status === "loading" && <GeneratingRecipe />}
         {/*  */}
         {/* If Error */}
         {isError && <Error setIsError={setIsError} setIsForm={setIsForm} />}
         {/*  */}
         {/* Generated Recipe */}
-        {mutation.data?.success === true && <GeneratedRecipe recipe={recipe} />}
+        {data?.success === true && <GeneratedRecipe recipe={recipe} />}
         {/*  */}
       </main>
     </>
