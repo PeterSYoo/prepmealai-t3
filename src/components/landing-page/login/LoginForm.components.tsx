@@ -11,63 +11,43 @@ import { EmailDoesntExistModal } from "./EmailDoesntExistModal.components";
 type Inputs = {
   email: string;
   password: string;
-  cpassword: string;
 };
 
 // Type for the form schema
 type FormSchemaType = z.infer<typeof FormSchema>;
-const FormSchema = z
-  .object({
-    email: z
-      .string()
-      .email("Email must be a valid email")
-      .max(35, "Email must not be longer than 35 characters"),
-    password: z
-      .string()
-      .min(6, "Password must be at least 6 characters")
-      .min(1, "Password is required")
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).*$/,
-        "Password must contain at least one lowercase letter, one uppercase letter, one special character, and no spaces"
-      ),
-    cpassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters")
-      .min(1, "Password is required")
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).*$/,
-        "Password must contain at least one lowercase letter, one uppercase letter, one special character, and no spaces"
-      ),
-  })
-  .superRefine(({ cpassword, password }, ctx) => {
-    if (cpassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-        path: ["cpassword"],
-      });
-    }
-  });
+const FormSchema = z.object({
+  email: z
+    .string()
+    .email("Email must be a valid email")
+    .max(35, "Email must not be longer than 35 characters"),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .min(1, "Password is required")
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).*$/,
+      "Password must contain at least one lowercase letter, one uppercase letter, one special character, and no spaces"
+    ),
+});
 
 export const LoginForm = ({
   setIsLogin,
 }: {
   setIsLogin: (isLogin: boolean) => void;
 }) => {
+  // States ---------------------------------------------------------
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isEmailDoesntExistModal, setIsEmailDoesntExistModal] =
     useState<boolean>(false);
 
-  // router
+  // APIs | Hooks | 3rd Party Libraries -------------------------------
   const router = useRouter();
 
-  // React Query
   const { mutateAsync, isLoading } = useHandleLogin(
-    setIsEmailDoesntExistModal,
-    router
+    router,
+    setIsEmailDoesntExistModal
   );
 
-  // Use the useForm hook to handle the form state and validation
   const {
     register,
     handleSubmit,
@@ -81,6 +61,7 @@ export const LoginForm = ({
     reset;
   };
 
+  // JSX ----------------------------------------------------------------
   return (
     <>
       {isEmailDoesntExistModal && (
@@ -132,33 +113,6 @@ export const LoginForm = ({
           </div>
           {errors.password && (
             <p className="text-sm text-red-600">{errors.password.message}</p>
-          )}
-        </label>
-        {/*  */}
-        {/* Confirm Password */}
-        <label className="flex flex-col gap-1">
-          <p className="font-medium">Confirm Password:</p>
-          <div className="flex w-full items-center border border-black bg-[#FFF9F5]">
-            <input
-              {...register("cpassword")}
-              placeholder="type here"
-              type={showPassword ? "text" : "password"}
-              className="w-full bg-[#FFF9F5] px-2 py-2 placeholder:text-[#aaa8a6] focus:outline-none"
-            />
-            {showPassword ? (
-              <RiEye2Line
-                onClick={() => setShowPassword(false)}
-                className="mx-3 cursor-pointer text-xl"
-              />
-            ) : (
-              <RiEyeCloseLine
-                onClick={() => setShowPassword(true)}
-                className="mx-3 cursor-pointer text-xl"
-              />
-            )}
-          </div>
-          {errors.cpassword && (
-            <p className="text-sm text-red-600">{errors.cpassword.message}</p>
           )}
         </label>
         {/*  */}
