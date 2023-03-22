@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { useMutation } from "@tanstack/react-query";
 import { env } from "~/env.mjs";
+import { z } from "zod";
 
 type ChatCompletion = {
   id: string;
@@ -39,17 +39,19 @@ const recipeSchema = z.array(
   })
 );
 
-export const openaiRouter = createTRPCRouter({
-  postOpenai: protectedProcedure
-    .input(z.object({ content: z.string() }))
-    .mutation(async ({ input }) => {
+const useFetchOpenAi = () => {
+  // useMutation ------------------
+  const { mutateAsync, isLoading, data, status } = useMutation(
+    async (content: string) => {
+      console.log({ content });
+
       try {
         const response = await fetch(
           "https://api.openai.com/v1/chat/completions",
           {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${env.OPENAI_API_KEY}`,
+              Authorization: `Bearer ${env.NEXT_PUBLIC_OPENAI_API_KEY}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -57,7 +59,7 @@ export const openaiRouter = createTRPCRouter({
               messages: [
                 {
                   role: "user",
-                  content: input.content,
+                  content,
                 },
               ],
             }),
@@ -67,7 +69,7 @@ export const openaiRouter = createTRPCRouter({
         try {
           const data: ChatCompletion =
             (await response.json()) as ChatCompletion;
-          console.log(data);
+          console.log({ data });
           // Check if the data matches the expected format
           const parsedData = (await JSON.parse(
             data.choices[0].message.content as string
@@ -90,40 +92,10 @@ export const openaiRouter = createTRPCRouter({
       } catch (error) {
         console.log(error);
       }
-    }),
-  postDemo: protectedProcedure
-    .input(z.object({ content: z.string() }))
-    .mutation(async ({ input }) => {
-      try {
-        const response = await fetch(
-          "https://api.openai.com/v1/chat/completions",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${env.OPENAI_API_KEY}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              model: "gpt-3.5-turbo",
-              messages: [
-                {
-                  role: "user",
-                  content: input.content,
-                },
-              ],
-            }),
-          }
-        );
+    }
+  );
 
-        const data = (await response.json()) as ChatCompletion;
+  return { mutateAsync, isLoading, data, status };
+};
 
-        return {
-          success: true,
-          message: "OpenAI generated demo object.",
-          data,
-        };
-      } catch (error) {
-        console.log(error);
-      }
-    }),
-});
+export default useFetchOpenAi;

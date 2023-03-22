@@ -35,6 +35,7 @@ export const GenerateRecipeForm = ({
   handleGenerateRecipe: (arg0: string, arg1: string, arg2: string) => void;
   setIsForm: (arg0: boolean) => void;
 }) => {
+  // 3rd Party Libraries ---------------------------------------------
   // Use the useForm hook to handle the form state and validation
   const {
     register,
@@ -49,6 +50,7 @@ export const GenerateRecipeForm = ({
     setIsForm(false);
   };
 
+  // JSX -------------------------------------------------------------
   return (
     <>
       <div className="w-full rounded-2xl bg-[#FFF9F5] shadow-[0_15px_20px_10px] shadow-black/50 md:mx-5 md:grid md:max-h-[691px] md:w-fit md:grid-cols-[1fr_1fr] md:shadow-[10px_15px_20px_10px] md:shadow-black/50">
