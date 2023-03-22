@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 export { default } from "next-auth/middleware";
 
 export const config = {
@@ -13,6 +13,6 @@ export function middleware(req: NextRequest) {
   if (cookie === undefined) {
     const url = req.nextUrl.clone();
     url.pathname = "/";
-    return NextResponse.redirect(url, req.url);
+    return NextResponse.redirect(url, 302);
   }
 }
