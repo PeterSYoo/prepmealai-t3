@@ -1,8 +1,6 @@
 import type { IRecipe } from "additional";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { VscDebugStepBack } from "react-icons/vsc";
-import { api } from "~/utils/api";
 
 export const Recipe = ({
   recipe,
@@ -11,14 +9,10 @@ export const Recipe = ({
   recipe: IRecipe | null;
   setIsRecipe: (arg0: boolean) => void;
 }) => {
-  const router = useRouter();
-
-  const postRecipe = api.recipe.postRecipe.useMutation();
-  // session
-
+  // JSX --------------------------------------------------------------
   return (
     <>
-      <section className="grid h-full w-full grid-rows-[288px_1fr]">
+      <section className="grid h-screen w-full grid-rows-[288px_1fr]">
         {/* Row 1 */}
         <header
           className={
@@ -44,7 +38,7 @@ export const Recipe = ({
           <div className="mx-auto flex h-full w-full max-w-[1440px] items-end justify-start pb-[35px] pl-[35px]">
             <button
               onClick={() => setIsRecipe(false)}
-              className="z-10 flex items-center gap-3 rounded-lg border border-[#D9CCC3] bg-[#FFF9F5] px-5 py-[8px] font-bold hover:bg-[#ebe3dd]"
+              className="z-10 flex items-center gap-3 rounded-lg border border-[#D9CCC3] bg-white/60 px-5 py-[8px] font-bold backdrop-blur-[2px] hover:bg-[#FFF9F5]"
             >
               <VscDebugStepBack className="text-xl" />
               BACK TO RECIPE BOARD
@@ -53,10 +47,70 @@ export const Recipe = ({
         </header>
         {/*  */}
         {/* Row 2 */}
-        <section className="flex flex-col bg-[#FFF9F5] bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678960055/PrepMeal%20AI/Recipe/bg-shapes_qte5dl.png')] bg-cover bg-center bg-no-repeat px-5">
-          <div className="mx-auto max-w-[1440px]">
+        <section className="bg-[#FFF9F5] bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678960055/PrepMeal%20AI/Recipe/bg-shapes_qte5dl.png')] bg-cover bg-center bg-no-repeat pt-[590px] md:px-5 md:pt-0">
+          <div className="mx-auto flex h-full w-full max-w-[1440px] flex-col md:grid md:grid-cols-[1fr_370px]">
+            {/* Column 1 */}
+            <div className="h-full w-full gap-[28px] px-10 pt-[86px]">
+              {/* Name */}
+              <div className="flex break-words pb-8">
+                <h1 className="w-full max-w-[250px] text-xl font-bold">
+                  Name:
+                </h1>
+                <p className="text-xl">{recipe?.name}</p>
+              </div>
+              {/*  */}
+              {/* Dish Type */}
+              <div className="flex break-words pb-8">
+                <h1 className="w-full max-w-[250px] text-xl font-bold">
+                  Dish Type:
+                </h1>
+                <p className="text-xl">{recipe?.dishType}</p>
+              </div>
+              {/*  */}
+              {/* Protein Choice */}
+              <div className="flex break-words pb-8">
+                <h1 className="w-full max-w-[250px] text-xl font-bold">
+                  Protein Choice:
+                </h1>
+                <p className="text-xl">{recipe?.proteinChoice}</p>
+              </div>
+              {/*  */}
+              {/* Description */}
+              <div className="flex break-words pb-8">
+                <h1 className="w-full max-w-[250px] text-xl font-bold">
+                  Description:
+                </h1>
+                <span className="text-xl">{recipe?.description}</span>
+              </div>
+              {/*  */}
+              {/* Ingredients */}
+              <div className="flex break-words pb-8">
+                <h1 className="w-full max-w-[250px] text-xl font-bold">
+                  Ingredients:
+                </h1>
+                <ul className="flex list-disc flex-col gap-4 pl-5 text-xl">
+                  {recipe?.ingredients.map((ingredient, index) => (
+                    <li key={index}>{ingredient}</li>
+                  ))}
+                </ul>
+              </div>
+              {/*  */}
+              {/* Instructions */}
+              <div className="flex break-words pb-[150px]">
+                <h1 className="w-full max-w-[250px] text-xl font-bold">
+                  Instructions:
+                </h1>
+                <ul className="flex list-disc flex-col gap-10 text-xl">
+                  {recipe?.instructions.map((instruction, index) => (
+                    <li key={index}>{instruction}</li>
+                  ))}
+                </ul>
+              </div>
+              {/*  */}
+            </div>
+            {/* Column 2 */}
             {/* Nutrition info */}
-            <div className="float-right -mt-16 grid h-[570px] w-[364px] grid-rows-[100px_1fr] rounded-[15px] border-2 border-[#D9CCC3] bg-[#FFF9F5] shadow-[0_10px_30px_1px] shadow-black/50">
+            <div className="absolute top-[320px] grid h-[570px] w-[364px] grid-rows-[100px_1fr] rounded-[15px] border-2 border-[#D9CCC3] bg-[#FFF9F5] shadow-[0_10px_30px_1px] shadow-black/50 md:static md:float-right md:-mt-16">
               <div className="w-[360px] rounded-t-[15px] bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678934903/PrepMeal%20AI/Recipe/nutrition-header_s9x0fq.png')] bg-cover bg-center bg-no-repeat">
                 <div className="flex justify-center pt-11">
                   <Image
@@ -175,64 +229,6 @@ export const Recipe = ({
               </div>
             </div>
             {/*  */}
-            <div className="h-full w-full gap-[28px] px-10 pt-[86px]">
-              {/* Name */}
-              <div className="flex break-words pb-8">
-                <h1 className="w-full max-w-[250px] text-xl font-bold">
-                  Name:
-                </h1>
-                <p className="text-xl">{recipe?.name}</p>
-              </div>
-              {/*  */}
-              {/* Dish Type */}
-              <div className="flex break-words pb-8">
-                <h1 className="w-full max-w-[250px] text-xl font-bold">
-                  Dish Type:
-                </h1>
-                <p className="text-xl">{recipe?.dishType}</p>
-              </div>
-              {/*  */}
-              {/* Protein Choice */}
-              <div className="flex break-words pb-8">
-                <h1 className="w-full max-w-[250px] text-xl font-bold">
-                  Protein Choice:
-                </h1>
-                <p className="text-xl">{recipe?.proteinChoice}</p>
-              </div>
-              {/*  */}
-              {/* Description */}
-              <div className="flex break-words pb-8">
-                <h1 className="w-full max-w-[250px] text-xl font-bold">
-                  Description:
-                </h1>
-                <span className="text-xl">{recipe?.description}</span>
-              </div>
-              {/*  */}
-              {/* Ingredients */}
-              <div className="flex break-words pb-8">
-                <h1 className="w-full max-w-[250px] text-xl font-bold">
-                  Ingredients:
-                </h1>
-                <ul className="flex list-disc flex-col gap-1 pl-5 text-xl">
-                  {recipe?.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ul>
-              </div>
-              {/*  */}
-              {/* Instructions */}
-              <div className="flex break-words pb-[150px]">
-                <h1 className="w-full max-w-[250px] text-xl font-bold">
-                  Instructions:
-                </h1>
-                <ul className="flex list-disc flex-col gap-10 text-xl">
-                  {recipe?.instructions.map((instruction, index) => (
-                    <li key={index}>{instruction}</li>
-                  ))}
-                </ul>
-              </div>
-              {/*  */}
-            </div>
           </div>
         </section>
         {/*  */}
