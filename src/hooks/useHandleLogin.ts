@@ -8,8 +8,8 @@ type Data = {
 };
 
 const useHandleLogin = (
-  setIsModal: (arg0: boolean) => void,
-  router: NextRouter
+  router: NextRouter,
+  setIsModal?: (arg0: boolean) => void
 ) => {
   const { mutateAsync, isLoading } = useMutation(async (data: Data) => {
     try {
@@ -22,7 +22,7 @@ const useHandleLogin = (
 
       if (status) {
         console.log({ status });
-        if (status.error === "No user found with that email!") {
+        if (status.error === "No user found with that email!" && setIsModal) {
           setIsModal(true);
         } else if (status.ok) {
           if (status.ok && status.url) {
