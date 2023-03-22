@@ -1,9 +1,9 @@
 import { signOut, useSession } from "next-auth/react";
 import { Fragment, useEffect, useState } from "react";
-import { Demo } from "~/components/dashboard/Demo.components";
-import { GenerateRecipeForm } from "~/components/dashboard/GenerateRecipeForm.components";
-import { RecipeCard } from "~/components/dashboard/RecipeCard.components";
-import { SavedRecipes } from "~/components/dashboard/SavedRecipes.components";
+import { Demo } from "~/components/drafts/dashboard/Demo.components";
+import { GenerateRecipeForm } from "~/components/drafts/dashboard/GenerateRecipeForm.components";
+import { RecipeCard } from "~/components/drafts/dashboard/RecipeCard.components";
+import { SavedRecipes } from "~/components/drafts/dashboard/SavedRecipes.components";
 import { api } from "~/utils/api";
 
 const DashboardPage = () => {
