@@ -1,8 +1,10 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export const AuthProviders: React.FC = () => {
+  // APIs | Custom Hooks | 3rd Party Libraries ----------------------------
   const { data: sessionData } = useSession();
 
+  // JSX ---------------------------------------------------------------------
   return (
     <div className="flex w-full max-w-[400px] flex-col items-center justify-center gap-5 px-5 pt-3">
       <button
@@ -16,7 +18,7 @@ export const AuthProviders: React.FC = () => {
                 })
         }
       >
-        {sessionData ? "Sign out" : "Discord Sign in"}
+        Discord Sign in
       </button>
       <button
         className="w-full rounded-lg border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#32383F] hover:text-white"
@@ -29,7 +31,7 @@ export const AuthProviders: React.FC = () => {
                 })
         }
       >
-        {sessionData ? "Sign out" : "Google Sign in"}
+        Google Sign in
       </button>
     </div>
   );
