@@ -9,9 +9,11 @@ import { FiChevronsDown } from "react-icons/fi";
 import { RxDividerVertical } from "react-icons/rx";
 
 const Home: NextPage = () => {
+  // States ------------------------------------------------
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
+  // Custom Functions ------------------------------------------------
   const openLoginDrawer = () => {
     setIsDrawerOpen(true);
     setIsLogin(true);
@@ -26,6 +28,7 @@ const Home: NextPage = () => {
     setIsDrawerOpen(false);
   };
 
+  // JSX ------------------------------------------------
   return (
     <>
       <Head>
