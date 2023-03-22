@@ -16,7 +16,7 @@ export const MenuDrawer = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex h-[55px] items-center justify-between gap-16 rounded-b-lg bg-[#FFF9F5] px-10 text-2xl shadow-[0_3px_9px_1px] shadow-black/50">
+        <div className="flex h-[55px] items-center justify-between gap-16 rounded-b-lg bg-white/60 px-10 text-2xl shadow-[0_3px_9px_1px] shadow-black/50 backdrop-blur-[2px]">
           <Link onClick={recipeRouteReload} href="#">
             <GiApothecary className="mb-1 cursor-pointer hover:text-[#32383F]" />
           </Link>
