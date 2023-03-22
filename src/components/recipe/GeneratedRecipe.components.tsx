@@ -46,10 +46,24 @@ export const GeneratedRecipe = ({ recipe }: { recipe: IRecipe[] }) => {
           <div className="mx-auto flex h-full w-full max-w-[1440px] items-end justify-start pb-[35px] pl-[35px]">
             <button
               onClick={handleSave}
-              className="z-10 flex items-center gap-3 rounded-lg border border-[#D9CCC3] bg-[#FFF9F5] px-5 py-[8px] font-bold hover:bg-[#ebe3dd]"
+              disabled={postRecipe.isLoading ? true : false}
+              className={`${
+                postRecipe.isLoading
+                  ? "z-10 flex w-[190px] items-center justify-center gap-3 rounded-lg border border-[#D9CCC3] bg-[#FFF9F5] px-5 py-[8px] font-bold opacity-30 hover:bg-[#ebe3dd]"
+                  : "z-10 flex w-[190px] items-center justify-center gap-3 rounded-lg border border-[#D9CCC3] bg-[#FFF9F5] py-[8px] font-bold hover:bg-[#ebe3dd]"
+              }`}
             >
-              <AiOutlineHeart className="text-xl" />
-              SAVE RECIPE
+              {postRecipe.isLoading ? (
+                <div
+                  className="spin-fast flex h-6 w-6 items-center justify-center rounded-full border-2 border-solid border-[#766f6a] border-current border-r-transparent text-[#766f6a]"
+                  role="status"
+                ></div>
+              ) : (
+                <>
+                  <AiOutlineHeart className="text-xl" />
+                  SAVE RECIPE
+                </>
+              )}
             </button>
           </div>
         </header>
