@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const TypingText = ({ texts }: { texts: [string] }) => {
+export const TypingText = ({ texts }: { texts: string[] }) => {
   const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
   const [displayText, setDisplayText] = useState<string | undefined>("");
 
