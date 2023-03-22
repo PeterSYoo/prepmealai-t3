@@ -1,5 +1,5 @@
 export interface IRecipe {
-  id: string;
+  id?: string;
   name: string;
   dishType: string;
   proteinChoice: string;
@@ -12,5 +12,5 @@ export interface IRecipe {
   prepTime: string;
   cookingTime: string;
   instructions: string[];
-  userId: string;
+  userId?: string;
 }
