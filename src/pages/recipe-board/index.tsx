@@ -141,17 +141,30 @@ const RecipeBoardPage = () => {
                     {/*  */}
                     {/* Save Button */}
                     <div className="flex w-full justify-center">
-                      <button
-                        onClick={handleSaveChanges}
-                        disabled={hasChanges ? false : true}
-                        className={` ${
-                          hasChanges
-                            ? "rounded-lg border border-dashed border-[#b7afaa] bg-[#DBD7CC] px-4 py-2 text-[17px] font-medium hover:bg-[#ece9e1]"
-                            : "rounded-lg border border-dashed border-[#b7afaa] bg-[#DBD7CC] px-4 py-2 text-[17px] font-medium opacity-30"
-                        }`}
-                      >
-                        Save Changes
-                      </button>
+                      {replaceRecipes.isLoading ? (
+                        <button
+                          onClick={handleSaveChanges}
+                          disabled={true}
+                          className="rounded-lg border border-dashed border-[#b7afaa] bg-[#DBD7CC] px-4 py-2 text-[17px] font-medium opacity-30"
+                        >
+                          <div
+                            className="spin-fast flex h-6 w-6 items-center justify-center rounded-full border-2 border-solid border-[#766f6a] border-current border-r-transparent text-[#766f6a]"
+                            role="status"
+                          ></div>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={handleSaveChanges}
+                          disabled={hasChanges ? false : true}
+                          className={` ${
+                            hasChanges
+                              ? "rounded-lg border border-dashed border-[#b7afaa] bg-[#DBD7CC] px-4 py-2 text-[17px] font-medium hover:bg-[#ece9e1]"
+                              : "rounded-lg border border-dashed border-[#b7afaa] bg-[#DBD7CC] px-4 py-2 text-[17px] font-medium opacity-30"
+                          }`}
+                        >
+                          Save Changes
+                        </button>
+                      )}
                     </div>
                     {/*  */}
                     {/* Recipe Cards */}
