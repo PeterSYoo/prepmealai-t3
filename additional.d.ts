@@ -1,5 +1,7 @@
+import type { UniqueIdentifier } from "@dnd-kit/core";
+
 export interface IRecipe {
-  id?: string;
+  id?: string | UniqueIdentifier;
   name: string;
   dishType: string;
   proteinChoice: string;
