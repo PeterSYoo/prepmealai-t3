@@ -5,16 +5,19 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { api } from "~/utils/api";
 
 export const GeneratedRecipe = ({ recipe }: { recipe: IRecipe[] }) => {
+  // API | 3rd Party Libraries -----------------------------------
   const router = useRouter();
 
   const postRecipe = api.recipe.postRecipe.useMutation();
   // session
 
+  // Custom Functions ------------------------------------------
   const handleSave = async () => {
     await postRecipe.mutateAsync({ ...recipe[0] });
     await router.push("/recipe-board");
   };
 
+  // JSX ---------------------------------------------------------
   return (
     <>
       <section className="grid h-screen w-full grid-rows-[288px_1fr]">
