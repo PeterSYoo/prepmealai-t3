@@ -9,8 +9,11 @@ export const config = {
 };
 
 export function middleware(req: NextRequest) {
-  const cookie = req.cookies.get("next-auth.session-token")?.value;
-  if (cookie === undefined && req.url !== "/") {
+  const cookieName = req.cookies.get("next-auth.session-token")
+    ? "next-auth.session-token"
+    : "__Secure-next-auth.session-token";
+  const cookieValue = req.cookies.get(cookieName)?.value;
+  if (cookieValue === undefined) {
     const url = req.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url, 302);
