@@ -7,12 +7,15 @@ import { Error } from "~/components/recipe/Error.components";
 import type { IRecipe } from "additional";
 
 const RecipePage = () => {
+  // States -------------------------------------------------------
   const [recipe, setRecipe] = useState<IRecipe[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isForm, setIsForm] = useState<boolean>(true);
 
+  // API -------------------------------------------------------
   const mutation = api.openai.postOpenai.useMutation();
 
+  // Custom Functions -------------------------------------------
   const handleGenerateRecipe = (
     calories: string,
     protein: string,
@@ -47,6 +50,7 @@ const RecipePage = () => {
     mutation.mutate({ content });
   };
 
+  // UseEffects -------------------------------------------------------
   useEffect(() => {
     if (mutation.data?.success === false) {
       setIsError(true);
@@ -59,6 +63,7 @@ const RecipePage = () => {
     }
   }, [mutation.data]);
 
+  // JSX -------------------------------------------------------
   return (
     <>
       <main className="flex h-screen flex-col items-center justify-center bg-[#FFF9F5]">
