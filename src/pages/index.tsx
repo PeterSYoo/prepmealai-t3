@@ -7,11 +7,22 @@ import { SignupForm } from "~/components/landing-page/signup/SignupForm.componen
 import { getServerAuthSession } from "~/server/auth";
 import { FiChevronsDown } from "react-icons/fi";
 import { RxDividerVertical } from "react-icons/rx";
+import { useRouter } from "next/router";
+import useHandleLogin from "~/hooks/useHandleLogin";
 
 const Home: NextPage = () => {
   // States ------------------------------------------------
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
+  // APIs | Custom Hooks | 3rd Party Libraries ----------------------------
+  const router = useRouter();
+
+  const { mutateAsync } = useHandleLogin(router);
+
+  const handleGuestLogin = async () => {
+    await mutateAsync({ email: "guest@guest.com", password: "Abcd1234!" });
+  };
 
   // Custom Functions ------------------------------------------------
   const openLoginDrawer = () => {
@@ -82,6 +93,19 @@ const Home: NextPage = () => {
             {/* Signup Form */}
             {!isLogin && <SignupForm setIsLogin={setIsLogin} />}
             {/*  */}
+            <div className="grid w-full max-w-[400px] grid-cols-[1fr_50px_1fr] px-5 pt-6">
+              <div className="mb-2.5 border-b border-black"></div>
+              <p className="text-center font-bold">or</p>
+              <div className="mb-2.5 border-b border-black"></div>
+            </div>
+            <div className="w-full max-w-[400px] px-5 pt-5">
+              <button
+                className="w-full rounded-lg border border-black bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-[#32383F] hover:text-white"
+                onClick={() => handleGuestLogin()}
+              >
+                Guest Sign in
+              </button>
+            </div>
             <div className="grid w-full max-w-[400px] grid-cols-[1fr_50px_1fr] px-5 pt-6">
               <div className="mb-2.5 border-b border-black"></div>
               <p className="text-center font-bold">or</p>
