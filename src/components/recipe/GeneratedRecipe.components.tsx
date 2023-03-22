@@ -9,7 +9,6 @@ export const GeneratedRecipe = ({ recipe }: { recipe: IRecipe[] }) => {
   const router = useRouter();
 
   const postRecipe = api.recipe.postRecipe.useMutation();
-  // session
 
   // Custom Functions ------------------------------------------
   const handleSave = async () => {
