@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { env } from "~/env.mjs";
 
 type ChatCompletion = {
@@ -40,7 +40,7 @@ const recipeSchema = z.array(
 );
 
 export const openaiRouter = createTRPCRouter({
-  postOpenai: protectedProcedure
+  postOpenai: publicProcedure
     .input(z.object({ content: z.string() }))
     .mutation(async ({ input }) => {
       try {
