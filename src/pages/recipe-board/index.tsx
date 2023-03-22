@@ -170,6 +170,12 @@ const RecipeBoardPage = () => {
                     {/* Recipe Cards */}
                     <div className="flex w-full justify-center">
                       <div className="mb-[100px] flex flex-wrap gap-[50px] rounded-lg border border-dashed border-[#b7afaa] p-10">
+                        {allRecipes.isLoading && (
+                          <div
+                            className="spin-fast flex h-8 w-8 items-center justify-center rounded-full border-2 border-solid border-[#766f6a] border-current border-r-transparent text-[#DBD7CC]"
+                            role="status"
+                          ></div>
+                        )}
                         {recipes?.map((recipe, i) => (
                           <SavedRecipesCard
                             key={recipe.id}
