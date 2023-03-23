@@ -42,9 +42,6 @@ const Home: NextPage = () => {
   // JSX ------------------------------------------------
   return (
     <>
-      <Head>
-        <title>PrepMeal AI</title>
-      </Head>
       <main className="h-screen w-full bg-[#FFF9F5] bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678680244/PrepMeal%20AI/Landing%20Page/landing-page-kitchen_ggawmx.png')] bg-cover bg-center bg-no-repeat">
         <div className="h-screen overflow-hidden bg-black/10 backdrop-blur">
           {/* Landing Page */}
