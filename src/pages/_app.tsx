@@ -23,6 +23,7 @@ import { MenuDrawer } from "~/components/MenuDrawer.components";
 import { useState } from "react";
 import { FiChevronsUp } from "react-icons/fi";
 import { HiOutlineSwitchVertical } from "react-icons/hi";
+import Head from "next/head";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -45,6 +46,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session}>
+      <Head>
+        <title>PrepMeal AI</title>
+      </Head>
       <div
         className={`${inter.variable} ${ptSansNarrow.variable} min-h-screen bg-[#FFF9F5] font-inter`}
       >

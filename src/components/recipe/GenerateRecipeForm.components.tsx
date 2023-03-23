@@ -63,6 +63,21 @@ export const GenerateRecipeForm = ({
           {/* Title */}
           <h1 className="text-3xl font-bold">Generate a Recipe</h1>
           {/*  */}
+          {/* Instructions */}
+          <ul className="flex list-decimal flex-col gap-1 pl-8">
+            <li className="">
+              Determine your calorie and protein goals for the meal.
+            </li>
+            <li className="">
+              Input your calorie and protein goals into the AI algorithm.
+            </li>
+            <li className="">Choose a type of protein for the recipe.</li>
+            <li className="">
+              The AI algorithm will generate a random recipe based on your
+              inputs.
+            </li>
+          </ul>
+          {/*  */}
           {/* Calories */}
           <label className="w-full pt-8">
             <p className="">Calories:</p>
