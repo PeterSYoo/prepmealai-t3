@@ -69,7 +69,7 @@ export const GenerateRecipeForm = ({
               Determine your calorie and protein goals for the meal.
             </li>
             <li className="">
-              Input your calorie and protein goals into the AI algorithm.
+              Input your calorie and protein amount for the recipe.
             </li>
             <li className="">Choose a type of protein for the recipe.</li>
             <li className="">
@@ -79,7 +79,7 @@ export const GenerateRecipeForm = ({
           </ul>
           {/*  */}
           {/* Calories */}
-          <label className="w-full pt-8">
+          <label className="w-full pt-2">
             <p className="">Calories:</p>
             <input
               {...register("calories")}
