@@ -1,29 +1,44 @@
-# Create T3 App
+# PrepMeal AI
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+An app that utilizes generative ai to generate recipes tailored to your exact caloric and macronutrient requirements.
 
-## What's next? How do I make an app with this?
+## Video Demo
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+https://www.youtube.com/watch?v=dPIB8GwZ67Y
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Trello
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+https://trello.com/b/oEypd5sm/prepmeal-ai
 
-## Learn More
+## Figma
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+https://www.figma.com/file/0LRVWzXez1cZBF35UMTQTC/PrepMeal-AI?node-id=0-1&t=r1zrbLWs4464efLn-0
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Technologies Used
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- TypeScript
+- NextJS
+- tRPC
+- Zod
+- Prisma
+- TanStack Query
+- OpenAI
+- Tailwind CSS
+- NextAuth.js
+- PostgreSQL
+- dnd-kit
+- React Hook Form
 
-## How do I deploy this?
+## App Features
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
-# recipe-generator-t3
+Users can
+
+- Sign up with a email address.
+- Sign in with Google or Discord credentials.
+- Generate recipes using a form where they input their caloric and macronutrient info.
+- View their recipe in a styled component.
+- Save their recipe to a recipe board.
+- Rearrange their recipe cards on the recipe board using drag and drop functionality.
+- Delete recipe cards by dragging and dropping their card in a delete container.
+- Save the changes they made to their recipe board.
+- View the recipe by clicking on a recipe card.
