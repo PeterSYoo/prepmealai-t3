@@ -33,6 +33,7 @@ const RecipeBoardPage = () => {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
   const [hasChanges, setHasChanges] = useState<boolean>(false);
+  const [changesSaved, setChangesSaved] = useState<string>("");
 
   // API | Routing | 3rd Party Libraries | etc. -----------------------
   const allRecipes = api.recipe.getAllRecipes.useQuery();
@@ -118,6 +119,15 @@ const RecipeBoardPage = () => {
     };
   }, [hasChanges, router]);
 
+  useEffect(() => {
+    if (replaceRecipes.isSuccess) {
+      setChangesSaved("Changes saved.");
+      setTimeout(() => {
+        setChangesSaved("");
+      }, 2000);
+    }
+  }, [replaceRecipes.isSuccess]);
+
   // JSX --------------------------------------------------------
   return (
     <>
@@ -166,6 +176,9 @@ const RecipeBoardPage = () => {
                         </button>
                       )}
                     </div>
+                    <p className="-mt-3 flex w-full justify-center text-sm text-[#aaa4a0]">
+                      {changesSaved}
+                    </p>
                     {/*  */}
                     {/* Recipe Cards */}
                     <div className="flex w-full justify-center">
