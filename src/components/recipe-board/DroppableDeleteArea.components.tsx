@@ -2,14 +2,17 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 export const DroppableDeleteArea = () => {
+  // States ------------------------------------------------------------- ***
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: "delete-container" });
 
+  // Constants ----------------------------------------------------------- ***
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <div

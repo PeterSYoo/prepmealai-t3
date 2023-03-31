@@ -5,11 +5,13 @@ export const Error = ({
   setIsError: (arg0: boolean) => void;
   setIsForm: (arg0: boolean) => void;
 }) => {
+  // Custom Functions ---------------------------------------------------- ***
   const handleFormReturn = () => {
     setIsError(false);
     setIsForm(true);
   };
 
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <section className="flex h-full w-full max-w-[700px] items-center justify-center">

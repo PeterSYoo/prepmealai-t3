@@ -6,6 +6,7 @@ export const EmailDoesntExistModal = ({
 }: {
   setIsEmailDoesntExistModal: (arg0: boolean) => void;
 }) => {
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <div className="fixed top-0 left-0 z-50 flex h-screen w-full justify-center bg-black bg-opacity-60 px-20 pt-[200px]">

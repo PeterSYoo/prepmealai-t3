@@ -1,10 +1,10 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export const AuthProviders: React.FC = () => {
-  // APIs | Custom Hooks | 3rd Party Libraries ----------------------------
+  // States ------------------------------------------------------------- ***
   const { data: sessionData } = useSession();
 
-  // JSX ---------------------------------------------------------------------
+  // JSX ------------------------------------------------------------------ ***
   return (
     <div className="flex w-full max-w-[400px] flex-col items-center justify-center gap-5 px-5 pt-3">
       <button

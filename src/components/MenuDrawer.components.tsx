@@ -5,6 +5,7 @@ import Link from "next/link";
 import { GiApothecary } from "react-icons/gi";
 
 export const MenuDrawer = () => {
+  // Custom Functions ---------------------------------------------------- ***
   const recipeRouteReload = () => {
     window.location.href = "/recipe";
   };
@@ -13,6 +14,7 @@ export const MenuDrawer = () => {
     window.location.href = "/recipe-board";
   };
 
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <div className="flex flex-col items-center justify-center">

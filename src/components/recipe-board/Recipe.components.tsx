@@ -9,7 +9,7 @@ export const Recipe = ({
   recipe: IRecipe | null;
   setIsRecipe: (arg0: boolean) => void;
 }) => {
-  // JSX --------------------------------------------------------------
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <section className="grid h-screen w-full grid-rows-[288px_1fr]">

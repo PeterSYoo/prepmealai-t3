@@ -7,11 +7,13 @@ export const SuccessModal = ({
   setIsSuccessModal: (arg0: boolean) => void;
   setIsLogin: (arg0: boolean) => void;
 }) => {
+  // Custom Functions ---------------------------------------------------- ***
   const handleGoLogin = () => {
     setIsSuccessModal(false);
     setIsLogin(true);
   };
 
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <div className="fixed top-0 left-0 z-50 flex h-screen w-full justify-center bg-black bg-opacity-60 px-20 pt-[200px]">

@@ -29,13 +29,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  // States ------------------------------------------------------------- ***
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState<boolean>(false);
-
   const router = useRouter();
 
+  // Constants ----------------------------------------------------------- ***
   const excludedRoutes = ["/"];
   const shouldRenderHeader = !excludedRoutes.includes(router.pathname);
 
+  // Custom Functions ---------------------------------------------------- ***
   const openMenuDrawer = () => {
     setIsMenuDrawerOpen(true);
   };
@@ -44,6 +46,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     setIsMenuDrawerOpen(false);
   };
 
+  // JSX ------------------------------------------------------------------ ***
   return (
     <SessionProvider session={session}>
       <Head>

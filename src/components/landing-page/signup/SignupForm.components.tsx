@@ -54,6 +54,7 @@ export const SignupForm = ({
 }: {
   setIsLogin: (arg0: boolean) => void;
 }) => {
+  // States ------------------------------------------------------------- ***
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isEmailExistsModal, setIsEmailExistsModal] = useState<boolean>(false);
   const [isSuccessModal, setIsSuccessModal] = useState<boolean>(false);
@@ -68,6 +69,7 @@ export const SignupForm = ({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   } = useForm<FormSchemaType>({ resolver: zodResolver(FormSchema) });
 
+  // Custom Functions ---------------------------------------------------- ***
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const result = await mutation.mutateAsync({
@@ -82,6 +84,7 @@ export const SignupForm = ({
     }
   };
 
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       {isEmailExistsModal && (
