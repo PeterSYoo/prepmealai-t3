@@ -8,17 +8,14 @@ import type { IRecipe } from "additional";
 import useFetchOpenAi from "~/hooks/useFetchOpenAi";
 
 const RecipePage = () => {
-  // States -------------------------------------------------------
+  // States ------------------------------------------------------------- ***
   const [recipe, setRecipe] = useState<IRecipe[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isForm, setIsForm] = useState<boolean>(true);
 
-  // API -------------------------------------------------------
-  // const mutation = api.openai.postOpenai.useMutation();
-
   const { mutateAsync, isLoading, data, status } = useFetchOpenAi();
 
-  // Custom Functions -------------------------------------------
+  // Custom Functions ---------------------------------------------------- ***
   const handleGenerateRecipe = async (
     calories: string,
     protein: string,
@@ -55,10 +52,10 @@ const RecipePage = () => {
     await mutateAsync(content);
   };
 
-  console.log({ data: data?.data?.choices[0].message.content });
-  console.log({ data: data?.success });
+  // console.log({ data: data?.data?.choices[0].message.content });
+  // console.log({ data: data?.success });
 
-  // UseEffects -------------------------------------------------------
+  // Effects ------------------------------------------------------------- ***
 
   // useEffect(() => {
   //   if (mutation.data?.success === false) {
@@ -84,7 +81,7 @@ const RecipePage = () => {
     }
   }, [data?.data, data?.success]);
 
-  // JSX -------------------------------------------------------
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <main className="flex h-screen flex-col items-center justify-center bg-[#FFF9F5]">

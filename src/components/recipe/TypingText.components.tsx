@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
 export const TypingText = ({ texts }: { texts: string[] }) => {
+  // States ------------------------------------------------------------- ***
   const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
   const [displayText, setDisplayText] = useState<string | undefined>("");
 
+  // Effects ------------------------------------------------------------- ***
   useEffect(() => {
     let currentIndex = 0;
     const interval = setInterval(() => {
@@ -19,6 +21,7 @@ export const TypingText = ({ texts }: { texts: string[] }) => {
     return () => clearInterval(interval);
   }, [texts, currentTextIndex]);
 
+  // JSX ------------------------------------------------------------------ ***
   return (
     <section className="px-24">
       <p className="bg-black bg-clip-text pb-32 text-2xl font-bold">

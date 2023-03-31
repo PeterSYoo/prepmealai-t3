@@ -35,12 +35,11 @@ export const LoginForm = ({
 }: {
   setIsLogin: (isLogin: boolean) => void;
 }) => {
-  // States ---------------------------------------------------------
+  // States ------------------------------------------------------------- ***
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isEmailDoesntExistModal, setIsEmailDoesntExistModal] =
     useState<boolean>(false);
 
-  // APIs | Hooks | 3rd Party Libraries -------------------------------
   const router = useRouter();
 
   const { mutateAsync, isLoading } = useHandleLogin(
@@ -56,12 +55,13 @@ export const LoginForm = ({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   } = useForm<FormSchemaType>({ resolver: zodResolver(FormSchema) });
 
+  // Custom Functions ---------------------------------------------------- ***
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     await mutateAsync({ email: data.email, password: data.password });
     reset;
   };
 
-  // JSX ----------------------------------------------------------------
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       {isEmailDoesntExistModal && (

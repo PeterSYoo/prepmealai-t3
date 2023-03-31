@@ -12,6 +12,7 @@ export const RecipeDragOverlay = forwardRef(
     }: { id: UniqueIdentifier; recipe: IRecipe | undefined; i: number },
     ref: LegacyRef<HTMLElement> | undefined
   ) => {
+    // JSX ------------------------------------------------------------------ ***
     return (
       <section
         className="bg-start z-20 mb-[50px] grid min-h-[380px] w-[260px] rotate-6 grid-rows-[80px_1fr_130px] rounded-[25px] border border-[#D9CCC3] bg-white bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679034955/PrepMeal%20AI/Recipe%20Board/Ellipse_4_2_zoytb3.png')] bg-no-repeat px-[24px] pt-[19px] pb-[27px] shadow-[3px_3px_10px_1px] shadow-black/30"

@@ -16,7 +16,19 @@ export const SavedRecipesCard = ({
   isDragging: boolean;
   handleRecipeClick: (recipe: IRecipe) => void;
 }) => {
-  // Custom Functions ------------------------------------------
+  // States ------------------------------------------------------------- ***
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: getId(recipe) });
+
+  // Constants ----------------------------------------------------------- ***
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition: transition
+      ? `transform ${transition}ms ease-in-out`
+      : undefined,
+  };
+
+  // Custom Functions ---------------------------------------------------- ***
   const getId = (recipe: IRecipe) => {
     if (recipe.id) {
       return recipe.id;
@@ -25,18 +37,7 @@ export const SavedRecipesCard = ({
     }
   };
 
-  // APIs | 3rd party libraries ---------------------------------
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: getId(recipe) });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition: transition
-      ? `transform ${transition}ms ease-in-out`
-      : undefined,
-  };
-
-  // JSX ---------------------------------------------
+  // JSX ------------------------------------------------------------------ ***
   return (
     <section
       className={`bg-start mb-[50px] grid min-h-[380px] w-[260px] break-inside-avoid grid-rows-[80px_1fr_130px] rounded-[25px] border border-[#D9CCC3] bg-white bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1679034955/PrepMeal%20AI/Recipe%20Board/Ellipse_4_2_zoytb3.png')] bg-no-repeat px-[24px] pt-[19px] pb-[27px] shadow-[3px_3px_10px_1px] shadow-black/30 ${

@@ -1,6 +1,7 @@
 import { TypingText } from "./TypingText.components";
 
 export const GeneratingRecipe = () => {
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <main className="flex h-screen w-screen items-center justify-center">
