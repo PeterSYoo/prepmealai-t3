@@ -11,20 +11,15 @@ import { useRouter } from "next/router";
 import useHandleLogin from "~/hooks/useHandleLogin";
 
 const Home: NextPage = () => {
-  // States ------------------------------------------------
+  // States ------------------------------------------------------------- ***
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  // APIs | Custom Hooks | 3rd Party Libraries ----------------------------
   const router = useRouter();
 
   const { mutateAsync } = useHandleLogin(router);
 
-  const handleGuestLogin = async () => {
-    await mutateAsync({ email: "guest@guest.com", password: "Abcd1234!" });
-  };
-
-  // Custom Functions ------------------------------------------------
+  // Custom Functions ---------------------------------------------------- ***
   const openLoginDrawer = () => {
     setIsDrawerOpen(true);
     setIsLogin(true);
@@ -39,7 +34,11 @@ const Home: NextPage = () => {
     setIsDrawerOpen(false);
   };
 
-  // JSX ------------------------------------------------
+  const handleGuestLogin = async () => {
+    await mutateAsync({ email: "guest@guest.com", password: "Abcd1234!" });
+  };
+
+  // JSX ------------------------------------------------------------------ ***
   return (
     <>
       <main className="h-screen w-full bg-[#FFF9F5] bg-[url('https://res.cloudinary.com/dryh1nvhk/image/upload/v1678680244/PrepMeal%20AI/Landing%20Page/landing-page-kitchen_ggawmx.png')] bg-cover bg-center bg-no-repeat">
