@@ -29,13 +29,13 @@ export const SavedRecipesCard = ({
   };
 
   // Custom Functions ---------------------------------------------------- ***
-  const getId = (recipe: IRecipe) => {
+  function getId(recipe: IRecipe) {
     if (recipe.id) {
       return recipe.id;
     } else {
       throw new Error("Recipe ID is undefined");
     }
-  };
+  }
 
   // JSX ------------------------------------------------------------------ ***
   return (
