@@ -22,7 +22,7 @@ export function middleware(req: NextRequest) {
   } else if (cookieValue !== undefined) {
     if (req.nextUrl.pathname === "/") {
       const url = req.nextUrl.clone();
-      url.pathname = "/dashboard";
+      url.pathname = "/recipe";
       return NextResponse.redirect(url, 301);
     }
   }
