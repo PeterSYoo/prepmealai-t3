@@ -2,10 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 export { default } from "next-auth/middleware";
 
 export const config = {
-  matcher: ["/dashboard", "/recipe", "/recipe-board"],
-  // pages: {
-  //   signIn: "/",
-  // },
+  matcher: ["/", "/((?!_next/static)(?!api)(?!favicon.ico).*)"],
 };
 
 export function middleware(req: NextRequest) {
@@ -13,9 +10,20 @@ export function middleware(req: NextRequest) {
     ? "next-auth.session-token"
     : "__Secure-next-auth.session-token";
   const cookieValue = req.cookies.get(cookieName)?.value;
+
+  console.log("cookie value: ", cookieValue);
+
   if (cookieValue === undefined) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/";
-    return NextResponse.redirect(url, 302);
+    if (req.nextUrl.pathname !== "/") {
+      const url = req.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url, 301);
+    }
+  } else if (cookieValue !== undefined) {
+    if (req.nextUrl.pathname === "/") {
+      const url = req.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.redirect(url, 301);
+    }
   }
 }
